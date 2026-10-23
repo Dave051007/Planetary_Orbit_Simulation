@@ -10,12 +10,12 @@
    <left>
       <VBox prefHeight="610.0" prefWidth="145.0" spacing="8.0" BorderPane.alignment="CENTER">
          <children>
-            <TitledPane prefHeight="200.0" prefWidth="200.0" />
-            <TitledPane prefHeight="200.0" prefWidth="200.0" />
-            <TitledPane prefHeight="200.0" prefWidth="200.0" />
+            <TitledPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="145.0" text="Celestial Bodies" />
+            <TitledPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="145.0" text="Planets Parameters" />
+            <TitledPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="145.0" text="Simulation Settings" />
          </children>
          <BorderPane.margin>
-            <Insets right="10.0" />
+            <Insets />
          </BorderPane.margin>
          <padding>
             <Insets top="10.0" />
@@ -32,7 +32,10 @@
       <VBox prefHeight="743.0" prefWidth="162.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="10.0" />
-         </BorderPane.margin></VBox>
+         </BorderPane.margin>
+         <children>
+            <TitledPane prefHeight="200.0" prefWidth="200.0" text="Graphs" />
+         </children></VBox>
    </right>
    <bottom>
       <VBox prefHeight="100.0" prefWidth="1020.0" BorderPane.alignment="CENTER">
