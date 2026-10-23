@@ -8,12 +8,18 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="610.0" prefWidth="145.0" spacing="8.0" BorderPane.alignment="CENTER">
          <children>
             <TitledPane prefHeight="200.0" prefWidth="200.0" />
             <TitledPane prefHeight="200.0" prefWidth="200.0" />
             <TitledPane prefHeight="200.0" prefWidth="200.0" />
          </children>
+         <BorderPane.margin>
+            <Insets right="10.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </VBox>
    </left>
    <center>
@@ -23,9 +29,18 @@
       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
    </padding>
    <right>
-      <VBox prefHeight="743.0" prefWidth="162.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="743.0" prefWidth="162.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin></VBox>
    </right>
    <bottom>
-      <VBox prefHeight="142.0" prefWidth="1020.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="100.0" prefWidth="1020.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets top="8.0" />
+         </padding></VBox>
    </bottom>
 </BorderPane>
