@@ -8,11 +8,11 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="773.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <VBox prefHeight="610.0" prefWidth="145.0" spacing="8.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="630.0" prefWidth="180.0" spacing="8.0" BorderPane.alignment="CENTER">
          <children>
             <TitledPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="145.0" text="Celestial Bodies" />
-            <TitledPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="145.0" text="Planets Parameters" />
-            <TitledPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="145.0" text="Simulation Settings" />
+            <TitledPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="159.0" text="Planets Parameters" />
+            <TitledPane maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="180.0" text="Simulation Settings" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -29,16 +29,20 @@
       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
    </padding>
    <right>
-      <VBox prefHeight="743.0" prefWidth="162.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="630.0" prefWidth="200.0" spacing="8.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="10.0" />
          </BorderPane.margin>
          <children>
-            <TitledPane prefHeight="200.0" prefWidth="200.0" text="Graphs" />
-         </children></VBox>
+            <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="145.0" text="Graphs" />
+            <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="264.0" prefWidth="200.0" text="Orbit Line Color" />
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding></VBox>
    </right>
    <bottom>
-      <VBox prefHeight="100.0" prefWidth="1020.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="140.0" prefWidth="1020.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="10.0" />
          </BorderPane.margin>
