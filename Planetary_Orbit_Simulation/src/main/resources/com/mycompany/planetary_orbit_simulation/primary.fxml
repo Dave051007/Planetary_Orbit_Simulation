@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="773.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIController">
+<BorderPane prefHeight="773.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <VBox prefHeight="630.0" prefWidth="180.0" spacing="8.0" BorderPane.alignment="CENTER">
          <children>
@@ -19,15 +19,15 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
                      <children>
-                        <CheckBox fx:id="sunCheck" mnemonicParsing="false" text="Sun" />
-                        <CheckBox fx:id="mercuryCheck" mnemonicParsing="false" text="Mercury" />
-                        <CheckBox fx:id="venusCheck" mnemonicParsing="false" text="Venus" />
-                        <CheckBox fx:id="earthCheck" mnemonicParsing="false" text="Earth" />
-                        <CheckBox fx:id="marsCheck" mnemonicParsing="false" text="Mars" />
-                        <CheckBox fx:id="jupiterCheck" mnemonicParsing="false" text="Jupiter" />
-                        <CheckBox fx:id="saturnCheck" mnemonicParsing="false" text="Saturn" />
-                        <CheckBox fx:id="uranusCheck" mnemonicParsing="false" text="Uranus" />
-                        <CheckBox fx:id="neptuneCheck" mnemonicParsing="false" text="Neptune" />
+                        <CheckBox mnemonicParsing="false" text="Sun" />
+                        <CheckBox mnemonicParsing="false" text="Mercury" />
+                        <CheckBox mnemonicParsing="false" text="Venus" />
+                        <CheckBox mnemonicParsing="false" text="Earth" />
+                        <CheckBox mnemonicParsing="false" text="Mars" />
+                        <CheckBox mnemonicParsing="false" text="Jupiter" />
+                        <CheckBox mnemonicParsing="false" text="Saturn" />
+                        <CheckBox mnemonicParsing="false" text="Uranus" />
+                        <CheckBox mnemonicParsing="false" text="Neptune" />
                      </children>
                   </VBox>
                </content></TitledPane>
@@ -67,12 +67,12 @@
             <Insets top="10.0" />
          </BorderPane.margin>
          <children>
-            <Button fx:id="startBtn" layoutX="179.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="117.0" text="▶ Start" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="28.0" />
-            <Button fx:id="stopBtn" layoutX="704.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="117.0" text="■ Pause" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="28.0" />
-            <Slider fx:id="zoomSlider" layoutX="354.0" layoutY="32.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="295.0" value="50.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="31.0" />
-            <Button fx:id="zoomOutBtn" layoutX="321.0" layoutY="39.0" mnemonicParsing="false" onAction="#onZoomOut" prefHeight="25.0" prefWidth="25.0" text="-" AnchorPane.leftAnchor="332.0" AnchorPane.topAnchor="38.0" />
-            <Button fx:id="zoomInBtn" layoutX="653.0" layoutY="39.0" mnemonicParsing="false" onAction="#onZoomIn" prefHeight="25.0" prefWidth="25.0" text="+" AnchorPane.rightAnchor="352.0" AnchorPane.topAnchor="38.0" />
-            <Label fx:id="zoomLabel" alignment="CENTER" layoutX="486.0" layoutY="18.0" text="Zoom (x)" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="10.0" />
+            <Button layoutX="179.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="117.0" text="▶ Start" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="28.0" />
+            <Button layoutX="704.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="117.0" text="■ Pause" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="28.0" />
+            <Slider layoutX="354.0" layoutY="32.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="295.0" value="50.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="31.0" />
+            <Button layoutX="321.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="-" AnchorPane.leftAnchor="332.0" AnchorPane.topAnchor="38.0" />
+            <Button layoutX="653.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="+" AnchorPane.rightAnchor="352.0" AnchorPane.topAnchor="38.0" />
+            <Label alignment="CENTER" layoutX="486.0" layoutY="18.0" text="Zoom (x)" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="10.0" />
          </children>
       </AnchorPane>
    </bottom>
