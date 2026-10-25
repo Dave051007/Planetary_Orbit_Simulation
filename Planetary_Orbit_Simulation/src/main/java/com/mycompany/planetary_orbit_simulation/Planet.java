@@ -86,5 +86,8 @@ public class Planet {
         this.vy = vy;
     }
     
-    
+    public void setAcceleration(double ax, double ay) {
+        this.ax = ax;
+        this.ay = ay;
+    }
 }
