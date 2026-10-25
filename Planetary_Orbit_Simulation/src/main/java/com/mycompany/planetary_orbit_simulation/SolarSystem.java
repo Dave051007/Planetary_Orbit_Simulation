@@ -26,4 +26,8 @@ public class SolarSystem {
     public ArrayList<Planet> getPlanets() {
         return planets;
     }
+    
+    public void addPlanet(Planet planet) {
+        planets.add(planet);
+    }
 }
