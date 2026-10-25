@@ -29,4 +29,16 @@ public class Sun {
         shape.setCenterY(sunY);
         shape.setFill(Color.YELLOW);
     }
+
+    public static double getMass() {
+        return mass;
+    }
+
+    public double getSunX() {
+        return sunX;
+    }
+
+    public double getSunY() {
+        return sunY;
+    }
 }
