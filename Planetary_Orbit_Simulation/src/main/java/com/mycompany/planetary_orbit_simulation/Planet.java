@@ -76,5 +76,8 @@ public class Planet {
         return ay;
     }
     
-    
+    public void setPosition(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 }
