@@ -30,4 +30,8 @@ public class SolarSystem {
     public void addPlanet(Planet planet) {
         planets.add(planet);
     }
+    
+    public void removePlanet(Planet planet) {
+        planets.remove(planet);
+    }   
 }
