@@ -14,9 +14,16 @@ public class SolarSystem {
     private Sun sun;
     private ArrayList<Planet> planets;
 
-        public SolarSystem(Sun sun) {
+    public SolarSystem(Sun sun) {
         this.sun = sun;
         this.planets = new ArrayList<>();
     }
 
+    public Sun getSun() {
+        return sun;
+    }
+
+    public ArrayList<Planet> getPlanets() {
+        return planets;
+    }
 }
