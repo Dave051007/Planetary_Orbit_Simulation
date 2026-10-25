@@ -4,6 +4,7 @@
  */
 package com.mycompany.planetary_orbit_simulation;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
@@ -16,6 +17,16 @@ public class Sun {
     private double sunX;
     private double sunY;
     
-    private double size;
+    private double radius;
     private Circle shape;
+
+    public Sun(double sunX, double sunY, double radius) {
+        this.sunX = sunX;
+        this.sunY = sunY;
+        
+        this.shape = new Circle(radius);
+        shape.setCenterX(sunX);
+        shape.setCenterY(sunY);
+        shape.setFill(Color.YELLOW);
+    }
 }
