@@ -4,6 +4,7 @@
  */
 package com.mycompany.planetary_orbit_simulation;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
@@ -27,4 +28,23 @@ public class Planet {
     
     private Circle shape;
     private double radius;
+    private Color planetColor;
+
+    public Planet(double mass, double x, double y, double vx, double vy, double radius, Color planetColor) {
+        this.mass = mass;
+        
+        // Indicates initial position of planet
+        this.x = x;
+        this.y = y;
+        
+        // Indicates direction
+        this.vx = vx;
+        this.vy = vy;
+        
+        // Initial values are 0
+        this.ax = 0;
+        this.ay = 0;
+        
+        this.shape = new Circle(radius, planetColor);
+    }
 }
