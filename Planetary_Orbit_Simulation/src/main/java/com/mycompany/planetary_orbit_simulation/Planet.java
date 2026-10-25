@@ -80,4 +80,11 @@ public class Planet {
         this.x = x;
         this.y = y;
     }
+    
+    public void setVelocity(double vx, double vy) {
+        this.vx = vx;
+        this.vy = vy;
+    }
+    
+    
 }
