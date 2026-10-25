@@ -47,4 +47,34 @@ public class Planet {
         
         this.shape = new Circle(radius, planetColor);
     }
+
+    public double getMass() {
+        return mass;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getVx() {
+        return vx;
+    }
+
+    public double getVy() {
+        return vy;
+    }
+
+    public double getAx() {
+        return ax;
+    }
+
+    public double getAy() {
+        return ay;
+    }
+    
+    
 }
