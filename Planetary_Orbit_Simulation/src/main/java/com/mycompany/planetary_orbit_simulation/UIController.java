@@ -56,6 +56,17 @@ public class UIController {
         speedLbl.textProperty().bind(
                 speedSlider.valueProperty().asString("Simulation Speed (%.0fx)"));
         
+        minBtn.setOnAction(e -> {
+            if (zoomSlider.getValue() != 1) {
+                zoomSlider.setValue(zoomSlider.getValue() - 1);
+            }
+        });
+        
+        plusBtn.setOnAction(e -> {
+            if (zoomSlider.getValue() != 100) {
+                zoomSlider.setValue(zoomSlider.getValue() + 1);
+            }
+        });
     }
     
 }
