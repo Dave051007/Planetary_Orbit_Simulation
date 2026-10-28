@@ -49,4 +49,13 @@ public class UIController {
     @FXML private Button minBtn;
     @FXML private Button plusBtn;
 
+    public void initialize() {
+        zoomLbl.textProperty().bind(
+                zoomSlider.valueProperty().asString("Zoom (%.0fx)"));
+        
+        speedLbl.textProperty().bind(
+                speedSlider.valueProperty().asString("Simulation Speed (%.0fx)"));
+        
+    }
+    
 }

@@ -50,8 +50,8 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0">
                      <children>
-                        <Label fx:id="speedLbl" prefHeight="17.0" prefWidth="124.0" text="Simulation speed (x)" />
-                        <Slider fx:id="speedSlider" />
+                        <Label fx:id="speedLbl" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="124.0" text="Simulation speed (x)" />
+                        <Slider fx:id="speedSlider" min="1.0" value="1.0" />
                         <CheckBox fx:id="planetsShowCb" mnemonicParsing="false" text="Show planets" />
                         <CheckBox fx:id="planetNamesShowCb" mnemonicParsing="false" text="Show planet names" />
                         <CheckBox fx:id="trailsShowCb" mnemonicParsing="false" text="Show trails" />
@@ -98,7 +98,7 @@
          <children>
             <Button fx:id="startBtn" layoutX="179.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="117.0" text="▶ Start" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="28.0" />
             <Button fx:id="pauseBtn" layoutX="704.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="117.0" text="■ Pause" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="28.0" />
-            <Slider fx:id="zoomSlider" layoutX="354.0" layoutY="32.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="295.0" value="50.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="31.0" />
+            <Slider fx:id="zoomSlider" layoutX="354.0" layoutY="32.0" min="1.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="295.0" value="50.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="31.0" />
             <Button fx:id="minBtn" layoutX="321.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="-" AnchorPane.leftAnchor="332.0" AnchorPane.topAnchor="38.0" />
             <Button fx:id="plusBtn" layoutX="653.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="+" AnchorPane.rightAnchor="352.0" AnchorPane.topAnchor="38.0" />
             <Label fx:id="zoomLbl" alignment="CENTER" layoutX="486.0" layoutY="18.0" text="Zoom (x)" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="10.0" />
