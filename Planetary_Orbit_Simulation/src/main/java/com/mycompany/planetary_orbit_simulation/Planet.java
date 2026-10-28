@@ -12,6 +12,7 @@ import javafx.scene.shape.Circle;
  * @author Admin
  */
 public class Planet {
+    private String name;
     private Sun sun;
     private double mass;
     
@@ -47,6 +48,10 @@ public class Planet {
         this.ay = 0;
         
         this.shape = new Circle(radius, planetColor);
+    }
+    
+    public String getName() {
+        return name;
     }
 
     public Sun getSun() {
