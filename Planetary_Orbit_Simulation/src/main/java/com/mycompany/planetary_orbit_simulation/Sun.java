@@ -12,7 +12,7 @@ import javafx.scene.shape.Circle;
  * @author Admin
  */
 public class Sun {
-    private static final double mass = 1.989e30;
+    private final double mass = 1.989e30;
     
     private double sunX;
     private double sunY;
@@ -30,7 +30,7 @@ public class Sun {
         shape.setFill(Color.YELLOW);
     }
 
-    public static double getMass() {
+    public double getMass() {
         return mass;
     }
 
