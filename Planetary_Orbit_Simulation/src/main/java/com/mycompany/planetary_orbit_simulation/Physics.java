@@ -11,6 +11,10 @@ package com.mycompany.planetary_orbit_simulation;
 public class Physics {
     private final double GRAVITATIONAL_CONSTANT = 6.6743e-11;
     
+    /**
+     * Calculates the orbital acceleration of a planet based on the planet's parameters
+     * @param planet the planet with its parameters
+     */
     public void calculateAcceleration(Planet planet) {
         double x = planet.getX();
         double y = planet.getY();
@@ -33,7 +37,12 @@ public class Physics {
         
     }
     
-    public void calculatePosition(Planet planet) {
+    /**
+     * 
+     * @param planet
+     * @param dt 
+     */
+    public void calculatePosition(Planet planet, double dt) {       // dt - small time interval
         
     }
 }
