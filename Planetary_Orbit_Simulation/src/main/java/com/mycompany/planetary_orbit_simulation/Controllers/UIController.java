@@ -1,4 +1,4 @@
-package com.mycompany.planetary_orbit_simulation;
+package com.mycompany.planetary_orbit_simulation.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

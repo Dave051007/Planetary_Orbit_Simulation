@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.planetary_orbit_simulation;
+package com.mycompany.planetary_orbit_simulation.Data_Model;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
