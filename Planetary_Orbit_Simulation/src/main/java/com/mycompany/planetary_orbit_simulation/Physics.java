@@ -38,11 +38,23 @@ public class Physics {
     }
     
     /**
-     * 
-     * @param planet
-     * @param dt 
+     * Calculates the planet's new position in a small interval of time
+     * @param planet the planet that has the position to be updated
+     * @param dt the small interval of time
      */
     public void calculatePosition(Planet planet, double dt) {       // dt - small time interval
+        double vx = planet.getVx();
+        double vy = planet.getVy();
         
+        double ax = planet.getAx();
+        double ay = planet.getAy();
+        
+        double dx = vx * dt + 0.5 * ax * (dt * dt);
+        double dy = vy * dt + 0.5 * ay * (dt * dt);
+        
+        double newX = planet.getX() + dx;
+        double newY = planet.getY() + dy;
+        
+        planet.setPosition(newX, newY);
     }
 }
