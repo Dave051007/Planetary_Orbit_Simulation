@@ -12,6 +12,7 @@ import javafx.scene.shape.Circle;
  * @author Admin
  */
 public class Planet {
+    private Sun sun;
     private double mass;
     
     // postion
