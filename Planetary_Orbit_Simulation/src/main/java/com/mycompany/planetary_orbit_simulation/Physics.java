@@ -33,8 +33,27 @@ public class Physics {
         planet.setAcceleration(ax, ay);
     }
         
-    public void calculateVelocity(Planet planet) {
+   /**
+    * Calculates the instantaneous velocity of the planet.
+    * @param planet the planet that has the velocity to be updated
+    * @param dt the very small interval of time
+    */
+    public void calculateVelocity(Planet planet, double dt) {
+        double oldAx = planet.getAx();
+        double oldAy = planet.getAy();
         
+        double oldVx = planet.getVx();
+        double oldVy = planet.getVy();
+        
+        calculateAcceleration(planet);
+        
+        double newAx = planet.getAx();
+        double newAy = planet.getAy();
+        
+        double newVx = oldVx + (oldAx + newAx * 0.5) * dt;
+        double newVy = oldVy + (oldAy + newAy * 0.5) * dt;
+        
+        planet.setAcceleration(newVx, newVy);
     }
     
     /**
