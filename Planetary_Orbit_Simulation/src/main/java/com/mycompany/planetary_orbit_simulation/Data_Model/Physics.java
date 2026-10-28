@@ -29,7 +29,7 @@ public class Physics {
         double angle = Math.atan2(y, x);
         
         double ax = a * Math.cos(angle);
-        double ay = a * Math.cos(angle);
+        double ay = a * Math.sin(angle);
         
         planet.setAcceleration(ax, ay);
     }
