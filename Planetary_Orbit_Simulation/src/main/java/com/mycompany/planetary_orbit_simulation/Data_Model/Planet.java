@@ -32,7 +32,7 @@ public class Planet {
     private double radius;
     private Color planetColor;
 
-    public Planet(double mass, double x, double y, double vx, double vy, double radius, Color planetColor) {
+    public Planet(String name, double mass, double x, double y, double radius, Color planetColor) {
         this.mass = mass;
         
         // Indicates initial position of planet
