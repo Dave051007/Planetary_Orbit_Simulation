@@ -29,11 +29,11 @@ public class Physics {
         planet.setAcceleration(ax, ay);
     }
         
-    public void calculateVelocity() {
+    public void calculateVelocity(Planet planet) {
         
     }
     
-    public void calculatePosition() {
+    public void calculatePosition(Planet planet) {
         
     }
 }
