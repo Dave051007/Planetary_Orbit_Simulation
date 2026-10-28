@@ -49,6 +49,10 @@ public class Planet {
         this.shape = new Circle(radius, planetColor);
     }
 
+    public Sun getSun() {
+        return sun;
+    }
+
     public double getMass() {
         return mass;
     }
