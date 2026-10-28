@@ -16,8 +16,9 @@ public class Physics {
      * @param planet the planet with its parameters
      */
     public void calculateAcceleration(Planet planet) {
-        double x = planet.getX();
-        double y = planet.getY();
+        // Initial vector postion from the planet towards the sun
+        double x = -planet.getX();
+        double y = -planet.getY();
         
         double distance = Math.sqrt((x * x)+(y * y));
         
@@ -50,10 +51,16 @@ public class Physics {
         double newAx = planet.getAx();
         double newAy = planet.getAy();
         
-        double newVx = oldVx + (oldAx + newAx * 0.5) * dt;
-        double newVy = oldVy + (oldAy + newAy * 0.5) * dt;
+        double newVx = oldVx + ((oldAx + newAx) * 0.5) * dt;
+        double newVy = oldVy + ((oldAy + newAy) * 0.5) * dt;
         
         planet.setAcceleration(newVx, newVy);
+    }
+    
+    public void calculateInitialVelocity(Planet planet) {
+        double vy = Math.sqrt(GRAVITATIONAL_CONSTANT * planet.getMass() )
+        
+        planet.setVelocity(0, );
     }
     
     /**
