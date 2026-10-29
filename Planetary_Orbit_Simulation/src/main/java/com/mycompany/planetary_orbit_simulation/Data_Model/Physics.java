@@ -39,7 +39,7 @@ public class Physics {
     * @param planet the planet that has the velocity to be updated
     * @param dt the very small interval of time
     */
-    public void calculateVelocity(Planet planet, double dt) {
+    public void updateVelocity(Planet planet, double dt) {
         double oldAx = planet.getAx();
         double oldAy = planet.getAy();
         
@@ -54,7 +54,7 @@ public class Physics {
         double newVx = oldVx + ((oldAx + newAx) * 0.5) * dt;
         double newVy = oldVy + ((oldAy + newAy) * 0.5) * dt;
         
-        planet.setAcceleration(newVx, newVy);
+        planet.setVelocity(newVx, newVy);
     }
     
     /**
@@ -73,7 +73,7 @@ public class Physics {
      * @param planet the planet that has the position to be updated
      * @param dt the small interval of time
      */
-    public void calculatePosition(Planet planet, double dt) {       // dt - small time interval
+    public void updatePosition(Planet planet, double dt) {       // dt - small time interval
         double vx = planet.getVx();
         double vy = planet.getVy();
         
