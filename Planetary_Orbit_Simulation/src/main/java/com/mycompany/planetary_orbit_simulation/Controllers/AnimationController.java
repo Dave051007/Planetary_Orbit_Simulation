@@ -31,5 +31,7 @@ public class AnimationController {
         animationPane.getChildren().add(sunShape);
     }
     
-    
+    public SolarSystem getSolarSystem() {
+        return solarSystem;
+    }
 }
