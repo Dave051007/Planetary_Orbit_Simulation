@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.planetary_orbit_simulation;
+package com.mycompany.planetary_orbit_simulation.Data_Model;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -12,6 +12,8 @@ import javafx.scene.shape.Circle;
  * @author Admin
  */
 public class Planet {
+    private String name;
+    private Sun sun;
     private double mass;
     
     // postion
@@ -30,7 +32,7 @@ public class Planet {
     private double radius;
     private Color planetColor;
 
-    public Planet(double mass, double x, double y, double vx, double vy, double radius, Color planetColor) {
+    public Planet(String name, double mass, double x, double y, double radius, Color planetColor) {
         this.mass = mass;
         
         // Indicates initial position of planet
@@ -46,6 +48,14 @@ public class Planet {
         this.ay = 0;
         
         this.shape = new Circle(radius, planetColor);
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public Sun getSun() {
+        return sun;
     }
 
     public double getMass() {
