@@ -53,8 +53,8 @@ public class UIController {
         zoomLbl.textProperty().bind(
                 zoomSlider.valueProperty().asString("Zoom (%.0fx)"));
         
-        speedLbl.textProperty().bind(
-                speedSlider.valueProperty().asString("Simulation Speed (%.0fx)"));
+        speedLbl.textProperty().bind(speedSlider.valueProperty().
+                asString("Simulation Speed (%.0fx)"));
         
         minBtn.setOnAction(e -> {
             if (zoomSlider.getValue() != 1) {
