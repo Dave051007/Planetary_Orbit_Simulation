@@ -57,10 +57,15 @@ public class Physics {
         planet.setAcceleration(newVx, newVy);
     }
     
-    public void calculateInitialVelocity(Planet planet) {
-        double vy = Math.sqrt(GRAVITATIONAL_CONSTANT * planet.getMass() )
+    /**
+     * Calculates the planet's initial velocity when planet is added
+     * @param planet the planet with initial velocity when added to the animationPane
+     * @param orbitalRadius the physical distance of the planet from the sun
+     */
+    public void calculateInitialVelocity(Planet planet, double orbitalRadius) {
+        double vy = Math.sqrt(GRAVITATIONAL_CONSTANT * planet.getMass() / orbitalRadius);
         
-        planet.setVelocity(0, );
+        planet.setVelocity(0, vy);
     }
     
     /**
