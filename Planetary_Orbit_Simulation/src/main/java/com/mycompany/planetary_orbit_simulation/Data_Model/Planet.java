@@ -40,8 +40,8 @@ public class Planet {
         this.y = y;
         
         // Indicates direction
-        this.vx = vx;
-        this.vy = vy;
+        this.vx = 0;
+        this.vy = 0;
         
         // Initial values are 0
         this.ax = 0;
