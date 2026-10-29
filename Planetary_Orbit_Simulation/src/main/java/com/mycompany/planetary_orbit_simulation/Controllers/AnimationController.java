@@ -21,5 +21,15 @@ public class AnimationController {
     public AnimationController(Pane animationPane) {
         this.animationPane = animationPane;
         this.solarSystem = new SolarSystem(new Sun(300.0, 300.0, 30.0));
+        initSun();
     }
+    
+    private void initSun() {
+        Circle sunShape = solarSystem.getSun().getShape();
+        sunShape.centerXProperty().bind(animationPane.widthProperty().divide(2));
+        sunShape.centerYProperty().bind(animationPane.heightProperty().divide(2));
+        animationPane.getChildren().add(sunShape);
+    }
+    
+    
 }
