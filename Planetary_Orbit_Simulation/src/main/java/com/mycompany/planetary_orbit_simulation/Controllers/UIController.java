@@ -67,6 +67,8 @@ public class UIController {
                 zoomSlider.setValue(zoomSlider.getValue() + 1);
             }
         });
+        
+        AnimationController animationController = new AnimationController(animationAreaPane);
     }
     
 }
