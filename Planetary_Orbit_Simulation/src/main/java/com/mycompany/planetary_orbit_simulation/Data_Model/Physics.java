@@ -88,4 +88,11 @@ public class Physics {
         
         planet.setPosition(newX, newY);
     }
+    
+    // Method that updates a planet's parameters over time
+    public void updatePhysics(Planet planet, double dt) {
+        updatePosition(planet, dt);         // update position based on current acceleration and velocity
+        calculateAcceleration(planet);      // calculate the new acceleration based on the new position
+        updateVelocity(planet, dt);         // update the velocity using the average acceleration during dt
+    }
 }
