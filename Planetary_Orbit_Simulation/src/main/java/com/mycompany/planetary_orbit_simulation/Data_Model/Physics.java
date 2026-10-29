@@ -44,7 +44,7 @@ public class Physics {
         double oldVx = planet.getVx();
         double oldVy = planet.getVy();
         
-        calculateAcceleration(planet);
+        calculateAcceleration(planet);      // calculate the new acceleration based on the new position
         
         double newAx = planet.getAx();
         double newAy = planet.getAy();
@@ -90,7 +90,6 @@ public class Physics {
     // Method that updates a planet's parameters over time
     public void updatePhysics(Planet planet, double dt) {
         updatePosition(planet, dt);         // update position based on current acceleration and velocity
-        calculateAcceleration(planet);      // calculate the new acceleration based on the new position
         updateVelocity(planet, dt);         // update the velocity using the average acceleration during dt
     }
 }
