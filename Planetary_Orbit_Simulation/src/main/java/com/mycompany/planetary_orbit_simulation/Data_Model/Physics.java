@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.planetary_orbit_simulation;
+package com.mycompany.planetary_orbit_simulation.Data_Model;
 
 /**
  *
@@ -16,19 +16,18 @@ public class Physics {
      * @param planet the planet with its parameters
      */
     public void calculateAcceleration(Planet planet) {
-        double x = planet.getX();
-        double y = planet.getY();
+        // Initial vector postion from the planet towards the sun
+        double x = -planet.getX();
+        double y = -planet.getY();
         
         double distance = Math.sqrt((x * x)+(y * y));
         
-        double force = GRAVITATIONAL_CONSTANT * planet.getSun().getMass() * planet.getMass() / (distance * distance);
-        
-        double a = force / planet.getMass();
+       double a = GRAVITATIONAL_CONSTANT * planet.getSun().getMass() / (distance * distance);
         
         double angle = Math.atan2(y, x);
         
         double ax = a * Math.cos(angle);
-        double ay = a * Math.cos(angle);
+        double ay = a * Math.sin(angle);
         
         planet.setAcceleration(ax, ay);
     }
@@ -38,22 +37,33 @@ public class Physics {
     * @param planet the planet that has the velocity to be updated
     * @param dt the very small interval of time
     */
-    public void calculateVelocity(Planet planet, double dt) {
+    public void updateVelocity(Planet planet, double dt) {
         double oldAx = planet.getAx();
         double oldAy = planet.getAy();
         
         double oldVx = planet.getVx();
         double oldVy = planet.getVy();
         
-        calculateAcceleration(planet);
+        calculateAcceleration(planet);      // calculate the new acceleration based on the new position
         
         double newAx = planet.getAx();
         double newAy = planet.getAy();
         
-        double newVx = oldVx + (oldAx + newAx * 0.5) * dt;
-        double newVy = oldVy + (oldAy + newAy * 0.5) * dt;
+        double newVx = oldVx + ((oldAx + newAx) * 0.5) * dt;
+        double newVy = oldVy + ((oldAy + newAy) * 0.5) * dt;
         
-        planet.setAcceleration(newVx, newVy);
+        planet.setVelocity(newVx, newVy);
+    }
+    
+    /**
+     * Calculates the planet's initial velocity when planet is added
+     * @param planet the planet with initial velocity when added to the animationPane
+     * @param orbitalRadius the physical distance of the planet from the sun
+     */
+    public void calculateInitialVelocity(Planet planet, double orbitalRadius) {
+        double vy = Math.sqrt(GRAVITATIONAL_CONSTANT * planet.getSun().getMass() / orbitalRadius);
+        
+        planet.setVelocity(0, vy);
     }
     
     /**
@@ -61,7 +71,7 @@ public class Physics {
      * @param planet the planet that has the position to be updated
      * @param dt the small interval of time
      */
-    public void calculatePosition(Planet planet, double dt) {       // dt - small time interval
+    public void updatePosition(Planet planet, double dt) {       // dt - small time interval
         double vx = planet.getVx();
         double vy = planet.getVy();
         
@@ -75,5 +85,11 @@ public class Physics {
         double newY = planet.getY() + dy;
         
         planet.setPosition(newX, newY);
+    }
+    
+    // Method that updates a planet's parameters over time
+    public void updatePhysics(Planet planet, double dt) {
+        updatePosition(planet, dt);         // update position based on current acceleration and velocity
+        updateVelocity(planet, dt);         // update the velocity using the average acceleration during dt
     }
 }
