@@ -69,6 +69,10 @@ public class UIController {
         });
         
         AnimationController animationController = new AnimationController(animationAreaPane);
+        
+        sunCb.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+            animationController.setSunVisible(isSelected);
+        });
     }
     
 }

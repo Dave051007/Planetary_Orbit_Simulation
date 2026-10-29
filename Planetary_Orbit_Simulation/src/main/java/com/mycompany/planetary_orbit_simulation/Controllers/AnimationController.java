@@ -31,6 +31,17 @@ public class AnimationController {
         animationPane.getChildren().add(sunShape);
     }
     
+    public void setSunVisible(boolean visible) {
+        Circle sunShape = solarSystem.getSun().getShape();
+        if (visible) {
+            if (!animationPane.getChildren().contains(sunShape)) {
+                animationPane.getChildren().add(sunShape);
+            }
+        } else {
+            animationPane.getChildren().remove(sunShape);
+        }
+    }
+    
     public SolarSystem getSolarSystem() {
         return solarSystem;
     }
