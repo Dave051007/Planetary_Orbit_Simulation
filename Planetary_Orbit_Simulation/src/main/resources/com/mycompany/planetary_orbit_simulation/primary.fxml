@@ -97,6 +97,7 @@
             <Insets top="10.0" />
          </BorderPane.margin>
          <children>
+            <Button fx:id="resetBtn" layoutX="96.0" layoutY="37.0" mnemonicParsing="false" text="⟳ Reset" AnchorPane.leftAnchor="96.0" AnchorPane.topAnchor="37.0" />
             <Button fx:id="startBtn" layoutX="179.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="117.0" text="▶ Start" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="28.0" />
             <Button fx:id="pauseBtn" layoutX="704.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="117.0" text="■ Pause" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="28.0" />
             <Slider fx:id="zoomSlider" layoutX="354.0" layoutY="32.0" min="1.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="295.0" value="50.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="31.0" />

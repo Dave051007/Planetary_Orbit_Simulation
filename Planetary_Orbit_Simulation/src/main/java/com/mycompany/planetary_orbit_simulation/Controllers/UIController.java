@@ -47,6 +47,7 @@ public class UIController {
     @FXML private Slider zoomSlider;
     @FXML private Button startBtn;
     @FXML private Button pauseBtn;
+    @FXML private Button resetBtn;
     @FXML private Button minBtn;
     @FXML private Button plusBtn;
 
