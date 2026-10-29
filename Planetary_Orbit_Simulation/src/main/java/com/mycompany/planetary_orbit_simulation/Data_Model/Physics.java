@@ -22,9 +22,7 @@ public class Physics {
         
         double distance = Math.sqrt((x * x)+(y * y));
         
-        double force = GRAVITATIONAL_CONSTANT * planet.getSun().getMass() * planet.getMass() / (distance * distance);
-        
-        double a = force / planet.getMass();
+       double a = GRAVITATIONAL_CONSTANT * planet.getSun().getMass() / (distance * distance);
         
         double angle = Math.atan2(y, x);
         
