@@ -21,10 +21,9 @@
             <version>21.0.9</version>
         </dependency>
         <dependency>
-            <groupId>org.jfxcore</groupId>
+            <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>18-ea+1</version>
-            <type>jar</type>
+            <version>21.0.9</version>
         </dependency>
     </dependencies>
     <build>

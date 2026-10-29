@@ -16,7 +16,7 @@ public class Planet {
     private Sun sun;
     private double mass;
     
-    // postion
+    // physical position
     private double x;
     private double y;
     
