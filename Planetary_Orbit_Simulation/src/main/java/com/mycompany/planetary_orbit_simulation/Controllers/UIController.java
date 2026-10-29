@@ -50,6 +50,8 @@ public class UIController {
     @FXML private Button plusBtn;
 
     public void initialize() {
+        
+        // Control Bar event handlers
         zoomLbl.textProperty().bind(
                 zoomSlider.valueProperty().asString("Zoom (%.0fx)"));
         
@@ -70,6 +72,7 @@ public class UIController {
         
         AnimationController animationController = new AnimationController(animationAreaPane);
         
+        // Checkboxes "Celestial Bodies" event handlers
         sunCb.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
             animationController.setSunVisible(isSelected);
         });
