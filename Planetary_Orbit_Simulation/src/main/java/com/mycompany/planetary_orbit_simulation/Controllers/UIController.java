@@ -27,6 +27,7 @@ public class UIController {
     @FXML private CheckBox neptuneCb;
 
     // Planet Parameters
+    @FXML private Label planetNameLbl;
     @FXML private Label massLbl;
     @FXML private Label positionLbl;
     @FXML private Label velocityLbl;
