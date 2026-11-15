@@ -23,7 +23,7 @@
                         <CheckBox fx:id="mercuryCb" mnemonicParsing="false" selected="true" text="Mercury" />
                         <CheckBox fx:id="venusCb" mnemonicParsing="false" selected="true" text="Venus" />
                         <CheckBox fx:id="earthCb" mnemonicParsing="false" selected="true" text="Earth" />
-                        <CheckBox fx:id="marsCb" mnemonicParsing="false" text="Mars" />
+                        <CheckBox fx:id="marsCb" mnemonicParsing="false" selected="true" text="Mars" />
                         <CheckBox fx:id="jupiterCb" mnemonicParsing="false" text="Jupiter" />
                         <CheckBox fx:id="saturnCb" mnemonicParsing="false" text="Saturn" />
                         <CheckBox fx:id="uranusCb" mnemonicParsing="false" text="Uranus" />
