@@ -61,6 +61,16 @@ public class SolarSystem {
         return planets;
     }
     
+    public Planet getPlanet(String name) {
+        for (Planet planet : planets) {
+            if (planet.getName().equalsIgnoreCase(name)) {
+                return planet;
+            }
+        }
+
+        return null;
+    }
+    
     public void addPlanet(Planet planet) {
         planets.add(planet);
     }
