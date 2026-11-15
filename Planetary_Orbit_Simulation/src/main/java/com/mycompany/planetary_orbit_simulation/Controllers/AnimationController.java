@@ -15,7 +15,7 @@ import javafx.scene.shape.Circle;
  * @author Admin
  */
 public class AnimationController {
-    private double SCALE = 5e10;           // 1 pixel = 5 * 10^10 m
+    private double SCALE =  1e9;           // 1 pixel = 1 * 10^9 m (temporary)
     private double TIME_SCALE = 86400;     // 1 second = 86400 simulation seconds
     
     private final Pane animationPane;
@@ -24,6 +24,14 @@ public class AnimationController {
     public AnimationController(Pane animationPane) {
         this.animationPane = animationPane;
         this.solarSystem = new SolarSystem(new Sun(300.0, 300.0, 25.0));
+        
+        animationPane.widthProperty().addListener((obs, oldValue, newValue) -> {
+            updateAllPlanetPositions();
+        });
+
+        animationPane.heightProperty().addListener((obs, oldValue, newValue) -> {
+            updateAllPlanetPositions();
+        });
         
         initSun();
         initPlanets();
@@ -34,16 +42,23 @@ public class AnimationController {
      * @param planet the planet of interest
      */
     private void updatePlanetPosition(Planet planet) {
+        Circle sunShape = solarSystem.getSun().getShape();
         Circle planetShape = planet.getShape();
-
-        double sunX = animationPane.getWidth() / 2;
-        double sunY = animationPane.getHeight() / 2;
-
+        
+        double sunX = sunShape.getCenterX();
+        double sunY = sunShape.getCenterY();
+        
         double screenX = sunX + planet.getX() / SCALE;
         double screenY = sunY + planet.getY() / SCALE;
-
+        
         planetShape.setCenterX(screenX);
         planetShape.setCenterY(screenY);
+    }
+    
+     private void updateAllPlanetPositions() {
+        for (Planet planet : solarSystem.getPlanets()) {
+            updatePlanetPosition(planet);
+        }
     }
     
     /**
