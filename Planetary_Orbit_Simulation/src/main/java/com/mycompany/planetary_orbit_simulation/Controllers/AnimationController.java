@@ -4,10 +4,55 @@
  */
 package com.mycompany.planetary_orbit_simulation.Controllers;
 
+import com.mycompany.planetary_orbit_simulation.Data_Model.Planet;
+import com.mycompany.planetary_orbit_simulation.Data_Model.SolarSystem;
+import com.mycompany.planetary_orbit_simulation.Data_Model.Sun;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+
 /**
  *
  * @author Admin
  */
 public class AnimationController {
     
+    private final Pane animationPane;
+    private final SolarSystem solarSystem;
+    
+    public AnimationController(Pane animationPane) {
+        this.animationPane = animationPane;
+        this.solarSystem = new SolarSystem(new Sun(300.0, 300.0, 25.0));
+        
+        initSun();
+        initPlanets();
+    }
+    
+    private void initSun() {
+        Circle sunShape = solarSystem.getSun().getShape();
+        sunShape.centerXProperty().bind(animationPane.widthProperty().divide(2));
+        sunShape.centerYProperty().bind(animationPane.heightProperty().divide(2));
+        animationPane.getChildren().add(sunShape);
+    }
+    
+    private void initPlanets() {
+        for (Planet planet : solarSystem.getPlanets()) {
+            Circle planetShape = planet.getShape();
+
+            animationPane.getChildren().add(planetShape);
+        }
+    }
+    
+    public void setBodyVisible(Circle bodyShape, boolean visible) {
+        if (visible) {
+            if (!animationPane.getChildren().contains(bodyShape)) {
+                animationPane.getChildren().add(bodyShape);
+            }
+        } else {
+            animationPane.getChildren().remove(bodyShape);
+        }
+    }
+    
+    public SolarSystem getSolarSystem() {
+        return solarSystem;
+    }
 }
