@@ -28,7 +28,27 @@ public class AnimationController {
         initSun();
         initPlanets();
     }
+    /**
+     * Converts the planet's position into its JavaFX position. 
+     * (real life position -> position in animation pane)
+     * @param planet the planet of interest
+     */
+    private void updatePlanetPosition(Planet planet) {
+        Circle planetShape = planet.getShape();
+
+        double sunX = animationPane.getWidth() / 2;
+        double sunY = animationPane.getHeight() / 2;
+
+        double screenX = sunX + planet.getX() / SCALE;
+        double screenY = sunY + planet.getY() / SCALE;
+
+        planetShape.setCenterX(screenX);
+        planetShape.setCenterY(screenY);
+    }
     
+    /**
+     * Creates a sun and adds it to the animation pane
+     */
     private void initSun() {
         Circle sunShape = solarSystem.getSun().getShape();
         
@@ -38,14 +58,23 @@ public class AnimationController {
         animationPane.getChildren().add(sunShape);
     }
     
+    /**
+     * Creates the planets and adds it to the animation pane
+     */
     private void initPlanets() {
         for (Planet planet : solarSystem.getPlanets()) {
             Circle planetShape = planet.getShape();
-
+            updatePlanetPosition(planet);
             animationPane.getChildren().add(planetShape);
         }
     }
     
+    /**
+     * Makes a body of the solar system(e.g. Sun, planets) visible in the 
+     * animation pane
+     * @param bodyShape the shape of the body
+     * @param visible true: body is visible, false: not visible
+     */
     public void setBodyVisible(Circle bodyShape, boolean visible) {
         if (visible) {
             if (!animationPane.getChildren().contains(bodyShape)) {
