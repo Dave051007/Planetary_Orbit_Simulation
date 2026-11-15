@@ -51,6 +51,14 @@ public class Planet {
         this.radius = radius;
         this.shape = new Circle(radius, planetColor);
     }
+
+    public Circle getShape() {
+        return shape;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
     
     public String getName() {
         return name;
