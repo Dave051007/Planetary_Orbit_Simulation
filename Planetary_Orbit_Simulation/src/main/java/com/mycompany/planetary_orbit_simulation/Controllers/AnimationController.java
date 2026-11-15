@@ -15,6 +15,8 @@ import javafx.scene.shape.Circle;
  * @author Admin
  */
 public class AnimationController {
+    private double SCALE = 5e10;           // 1 pixel = 5 * 10^10 m
+    private double TIME_SCALE = 86400;     // 1 second = 86400 simulation seconds
     
     private final Pane animationPane;
     private final SolarSystem solarSystem;
