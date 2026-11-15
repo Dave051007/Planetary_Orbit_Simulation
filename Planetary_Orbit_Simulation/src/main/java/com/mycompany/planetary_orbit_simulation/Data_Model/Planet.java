@@ -110,4 +110,12 @@ public class Planet {
         this.ax = ax;
         this.ay = ay;
     }
+    
+     public Circle getShape() {
+        return shape;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
 }
