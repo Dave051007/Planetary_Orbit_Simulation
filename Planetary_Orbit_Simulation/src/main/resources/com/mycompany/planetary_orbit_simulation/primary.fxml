@@ -20,9 +20,9 @@
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
                      <children>
                         <CheckBox fx:id="sunCb" mnemonicParsing="false" selected="true" text="Sun" />
-                        <CheckBox fx:id="mercuryCb" mnemonicParsing="false" text="Mercury" />
-                        <CheckBox fx:id="venusCb" mnemonicParsing="false" text="Venus" />
-                        <CheckBox fx:id="earthCb" mnemonicParsing="false" text="Earth" />
+                        <CheckBox fx:id="mercuryCb" mnemonicParsing="false" selected="true" text="Mercury" />
+                        <CheckBox fx:id="venusCb" mnemonicParsing="false" selected="true" text="Venus" />
+                        <CheckBox fx:id="earthCb" mnemonicParsing="false" selected="true" text="Earth" />
                         <CheckBox fx:id="marsCb" mnemonicParsing="false" text="Mars" />
                         <CheckBox fx:id="jupiterCb" mnemonicParsing="false" text="Jupiter" />
                         <CheckBox fx:id="saturnCb" mnemonicParsing="false" text="Saturn" />
@@ -35,6 +35,7 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0">
                      <children>
+                        <Label fx:id="planetNameLbl" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="67.0" text="Planet name: " />
                         <Label fx:id="massLbl" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="67.0" text="Mass (kg): " />
                         <Label fx:id="positionLbl" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="67.0" text="Position (x,y): " />
                         <Label fx:id="velocityLbl" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="67.0" text="Velocity (km/s): " />
@@ -96,6 +97,7 @@
             <Insets top="10.0" />
          </BorderPane.margin>
          <children>
+            <Button fx:id="resetBtn" layoutX="96.0" layoutY="37.0" mnemonicParsing="false" text="⟳ Reset" AnchorPane.leftAnchor="96.0" AnchorPane.topAnchor="37.0" />
             <Button fx:id="startBtn" layoutX="179.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="117.0" text="▶ Start" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="28.0" />
             <Button fx:id="pauseBtn" layoutX="704.0" layoutY="27.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="117.0" text="■ Pause" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="28.0" />
             <Slider fx:id="zoomSlider" layoutX="354.0" layoutY="32.0" min="1.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="295.0" value="50.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="385.0" AnchorPane.topAnchor="31.0" />

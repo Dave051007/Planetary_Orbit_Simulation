@@ -27,6 +27,7 @@ public class UIController {
     @FXML private CheckBox neptuneCb;
 
     // Planet Parameters
+    @FXML private Label planetNameLbl;
     @FXML private Label massLbl;
     @FXML private Label positionLbl;
     @FXML private Label velocityLbl;
@@ -46,15 +47,17 @@ public class UIController {
     @FXML private Slider zoomSlider;
     @FXML private Button startBtn;
     @FXML private Button pauseBtn;
+    @FXML private Button resetBtn;
     @FXML private Button minBtn;
     @FXML private Button plusBtn;
 
     public void initialize() {
+        // Control Bar event handlers
         zoomLbl.textProperty().bind(
                 zoomSlider.valueProperty().asString("Zoom (%.0fx)"));
         
-        speedLbl.textProperty().bind(
-                speedSlider.valueProperty().asString("Simulation Speed (%.0fx)"));
+        speedLbl.textProperty().bind(speedSlider.valueProperty().
+                asString("Simulation Speed (%.0fx)"));
         
         minBtn.setOnAction(e -> {
             if (zoomSlider.getValue() != 1) {
@@ -66,6 +69,38 @@ public class UIController {
             if (zoomSlider.getValue() != 100) {
                 zoomSlider.setValue(zoomSlider.getValue() + 1);
             }
+        });
+        
+        AnimationController animationController = new AnimationController(animationAreaPane);
+        
+        // Sun
+        sunCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getSun().getShape(),
+                    newValue
+            );
+        });
+
+        // Planets
+        mercuryCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Mercury").getShape(),
+                    newValue
+            );
+        });
+
+        venusCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Venus").getShape(),
+                    newValue
+            );
+        });
+
+        earthCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Earth").getShape(),
+                    newValue
+            );
         });
     }
     

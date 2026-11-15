@@ -29,8 +29,10 @@ public class AnimationController {
     
     private void initSun() {
         Circle sunShape = solarSystem.getSun().getShape();
+        
         sunShape.centerXProperty().bind(animationPane.widthProperty().divide(2));
         sunShape.centerYProperty().bind(animationPane.heightProperty().divide(2));
+        
         animationPane.getChildren().add(sunShape);
     }
     

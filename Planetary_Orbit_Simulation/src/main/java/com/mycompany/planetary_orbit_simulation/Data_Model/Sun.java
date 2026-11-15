@@ -41,4 +41,8 @@ public class Sun {
     public double getSunY() {
         return sunY;
     }
+    
+    public Circle getShape() {
+        return this.shape;
+    }
 }
