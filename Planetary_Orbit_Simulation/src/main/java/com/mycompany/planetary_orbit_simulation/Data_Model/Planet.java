@@ -33,6 +33,7 @@ public class Planet {
     private Color planetColor;
 
     public Planet(String name, double mass, double x, double y, double radius, Color planetColor) {
+        this.name = name;
         this.mass = mass;
         
         // Indicates initial position of planet
@@ -40,14 +41,23 @@ public class Planet {
         this.y = y;
         
         // Indicates direction
-        this.vx = vx;
-        this.vy = vy;
+        this.vx = 0;
+        this.vy = 0;
         
         // Initial values are 0
         this.ax = 0;
         this.ay = 0;
         
+        this.radius = radius;
         this.shape = new Circle(radius, planetColor);
+    }
+
+    public Circle getShape() {
+        return shape;
+    }
+
+    public double getRadius() {
+        return radius;
     }
     
     public String getName() {
@@ -99,5 +109,13 @@ public class Planet {
     public void setAcceleration(double ax, double ay) {
         this.ax = ax;
         this.ay = ay;
+    }
+    
+     public Circle getShape() {
+        return shape;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 }

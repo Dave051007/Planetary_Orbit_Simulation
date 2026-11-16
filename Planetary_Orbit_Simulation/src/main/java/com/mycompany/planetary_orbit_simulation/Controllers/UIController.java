@@ -74,9 +74,78 @@ public class UIController {
         
         AnimationController animationController = new AnimationController(animationAreaPane);
         
-        // Checkboxes "Celestial Bodies" event handlers
-        sunCb.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-            animationController.setSunVisible(isSelected);
+        animationController.setBodyVisible(
+        animationController.getSolarSystem().getPlanet("Jupiter").getShape(), false);
+        animationController.setBodyVisible(
+                animationController.getSolarSystem().getPlanet("Saturn").getShape(), false);
+        animationController.setBodyVisible(
+                animationController.getSolarSystem().getPlanet("Uranus").getShape(), false);
+        animationController.setBodyVisible(
+                animationController.getSolarSystem().getPlanet("Neptune").getShape(), false);
+        
+        // Sun
+        sunCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getSun().getShape(),
+                    newValue
+            );
+        });
+
+        // Planets
+        mercuryCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Mercury").getShape(),
+                    newValue
+            );
+        });
+
+        venusCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Venus").getShape(),
+                    newValue
+            );
+        });
+
+        earthCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Earth").getShape(),
+                    newValue
+            );
+        });
+        
+        marsCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Mars").getShape(),
+                    newValue
+            );
+        });
+        
+        jupiterCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Jupiter").getShape(),
+                    newValue
+            );
+        });
+        
+        saturnCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Saturn").getShape(),
+                    newValue
+            );
+        });
+        
+        uranusCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Uranus").getShape(),
+                    newValue
+            );
+        });
+        
+        neptuneCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setBodyVisible(
+                    animationController.getSolarSystem().getPlanet("Neptune").getShape(),
+                    newValue
+            );
         });
     }
     
