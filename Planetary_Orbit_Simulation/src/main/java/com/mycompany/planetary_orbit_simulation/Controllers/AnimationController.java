@@ -7,10 +7,13 @@ package com.mycompany.planetary_orbit_simulation.Controllers;
 import com.mycompany.planetary_orbit_simulation.Data_Model.Planet;
 import com.mycompany.planetary_orbit_simulation.Data_Model.SolarSystem;
 import com.mycompany.planetary_orbit_simulation.Data_Model.Sun;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.beans.binding.Bindings;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -25,6 +28,9 @@ public class AnimationController {
     
     private final Pane animationPane;
     private final SolarSystem solarSystem;
+    
+    private boolean namesVisible = false;
+    private final Map<Planet, Text> nameTexts = new HashMap<>();
     
     public AnimationController(Pane animationPane) {
         this.animationPane = animationPane;
@@ -125,8 +131,25 @@ public class AnimationController {
             planetShape.setManaged(false);
             updatePlanetPosition(planet);
             animationPane.getChildren().add(planetShape);
+            Text nameText = new Text(planet.getName());
+            nameText.setMouseTransparent(true);
+            nameText.setManaged(false);
+            nameText.setVisible(false);
+            nameText.xProperty().bind(planetShape.centerXProperty().add(planetShape.radiusProperty()).add(4));
+            nameText.yProperty().bind(planetShape.centerYProperty().subtract(planetShape.radiusProperty()).subtract(2));
+            nameTexts.put(planet, nameText);
+            animationPane.getChildren().add(nameText);
         }
     }
+    
+    public void setNamesVisible(boolean visible) {
+    namesVisible = visible;
+    for (Map.Entry<Planet, Text> entry : nameTexts.entrySet()) {
+        // a name shows only if names are on AND its planet is in the pane
+        entry.getValue().setVisible(
+                namesVisible && animationPane.getChildren().contains(entry.getKey().getShape()));
+    }
+}
     
     /**
      * Makes a body of the solar system(e.g. Sun, planets) visible in the 
@@ -142,6 +165,8 @@ public class AnimationController {
         } else {
             animationPane.getChildren().remove(bodyShape);
         }
+        
+        setNamesVisible(namesVisible);
     }
     
     public SolarSystem getSolarSystem() {
