@@ -74,6 +74,10 @@ public class UIController {
         
         AnimationController animationController = new AnimationController(animationAreaPane);
         
+        planetNamesShowCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setNamesVisible(newValue);
+        });
+        
         animationController.setBodyVisible(
         animationController.getSolarSystem().getPlanet("Jupiter").getShape(), false);
         animationController.setBodyVisible(

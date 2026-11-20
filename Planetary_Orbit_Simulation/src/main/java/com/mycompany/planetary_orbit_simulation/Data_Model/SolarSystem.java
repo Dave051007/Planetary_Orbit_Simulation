@@ -38,11 +38,11 @@ public class SolarSystem {
 
         // Jupiter
         planets.add(new Planet("Jupiter", 1.8982e27,
-                7.785e11, 0, 12, Color.BURLYWOOD));
+                7.785e11, 0, 12, Color.SIENNA));
 
         // Saturn
         planets.add(new Planet("Saturn", 5.6834e26,
-                1.434e12, 0, 10, Color.GOLDENROD));
+                1.434e12, 0, 10, Color.PERU));
 
         // Uranus
         planets.add(new Planet("Uranus", 8.6810e25,
