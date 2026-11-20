@@ -107,7 +107,7 @@ public class AnimationController {
 
             Circle orbit = new Circle();
             orbit.setFill(Color.TRANSPARENT);
-            orbit.setStroke(Color.GRAY);
+            orbit.setStroke(((Color) planet.getShape().getFill()).deriveColor(0, 1, 1, 0.7));
             orbit.setMouseTransparent(true);
             orbit.setManaged(false);                       // never stretches the layout
             orbit.centerXProperty().bind(sunShape.centerXProperty());
