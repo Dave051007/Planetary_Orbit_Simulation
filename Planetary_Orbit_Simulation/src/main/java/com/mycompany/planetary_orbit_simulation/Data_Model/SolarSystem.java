@@ -18,11 +18,6 @@ public class SolarSystem {
 
     public SolarSystem(Sun sun) {
         this.sun = sun;
-        
-        for (Planet planet : planets) {
-            planet.setSun(sun);
-        }
-        
         this.planets = new ArrayList<>();
         
         // Mercury
@@ -56,6 +51,10 @@ public class SolarSystem {
         // Neptune
         planets.add(new Planet("Neptune", 1.02413e26,
                 4.495e12, 0, 8, Color.DARKBLUE));
+        
+        for (Planet planet : planets) {
+            planet.setSun(sun);
+        }
     }
 
     public Sun getSun() {

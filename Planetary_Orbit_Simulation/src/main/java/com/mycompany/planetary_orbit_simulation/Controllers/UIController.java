@@ -1,5 +1,6 @@
 package com.mycompany.planetary_orbit_simulation.Controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -50,6 +51,8 @@ public class UIController {
     @FXML private Button resetBtn;
     @FXML private Button minBtn;
     @FXML private Button plusBtn;
+    
+    private AnimationController animationController;
 
     public void initialize() {
         
@@ -72,7 +75,11 @@ public class UIController {
             }
         });
         
-        AnimationController animationController = new AnimationController(animationAreaPane);
+        animationController = new AnimationController(animationAreaPane);
+        
+        planetNamesShowCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setNamesVisible(newValue);
+        });
         
         animationController.setBodyVisible(
         animationController.getSolarSystem().getPlanet("Jupiter").getShape(), false);
@@ -149,4 +156,8 @@ public class UIController {
         });
     }
     
+    @FXML
+    void startMotion(ActionEvent event) {
+        animationController.startAnimation();
+    }
 }
