@@ -27,7 +27,7 @@ public class AnimationController {
     private static final double MAX_PIXELS = 280;       // how far Neptune is drawn from the Sun
 
     private static final double MAX_STEP = 3600;
-    private double TIME_SCALE = 8640000;     // 1 second = 86400 simulation seconds
+    private double TIME_SCALE = 864000;     // 1 second = 864000 simulation seconds
 
     private Physics physics;
 
@@ -43,7 +43,7 @@ public class AnimationController {
     
     public AnimationController(Pane animationPane) {
         this.animationPane = animationPane;
-        this.solarSystem = new SolarSystem(new Sun(300.0, 300.0, 18.0));
+        this.solarSystem = new SolarSystem(new Sun(0, 0, 18.0));
         
         physics = new Physics();
         
@@ -55,7 +55,7 @@ public class AnimationController {
             updateAllPlanetPositions();
         });
         
-        initializePlanets();
+        initializePlanetsPhysics();
         
         initSun();
         initOrbits();
@@ -84,9 +84,10 @@ public class AnimationController {
         double sunX = sunShape.getCenterX();
         double sunY = sunShape.getCenterY();
 
-        double realDistance = Math.hypot(
-                planet.getX(), planet.getY()
-        );
+        double dx = planet.getX() - solarSystem.getSun().getSunX();
+        double dy = planet.getY() - solarSystem.getSun().getSunY();
+
+        double realDistance = Math.hypot(dx, dy);
 
         if (realDistance == 0) {
 
@@ -109,8 +110,8 @@ public class AnimationController {
         ) * getMaxScreenDistance();
 
         // Keep the planet's real direction, but place it at the screen distance
-        double screenX = sunX + planet.getX() / realDistance * screenDistance;
-        double screenY = sunY + planet.getY() / realDistance * screenDistance;
+        double screenX = sunX + dx / realDistance * screenDistance;
+        double screenY = sunY + dy / realDistance * screenDistance;
 
         planetShape.setCenterX(screenX);
         planetShape.setCenterY(screenY);
@@ -207,12 +208,18 @@ public class AnimationController {
         setNamesVisible(namesVisible);
     }
     
-    private void initializePlanets() {
+    private void initializePlanetsPhysics() {
         for (Planet planet : solarSystem.getPlanets()) {
-            double orbitalRadius = Math.hypot(planet.getX(), planet.getY());
+            double orbitalRadius = Math.hypot(
+                    planet.getX() - solarSystem.getSun().getSunX(),
+                    planet.getY() - solarSystem.getSun().getSunY()
+            );
+
             physics.calculateInitialVelocity(planet, orbitalRadius);
-            physics.calculateAcceleration(planet);
         }
+
+        // Calculate initial gravitational accelerations
+        physics.calculateAccelerations(solarSystem);
     }
     
     /**
@@ -246,12 +253,8 @@ public class AnimationController {
                     double remainingTime = dt;
 
                     while (remainingTime > 0) {
-                        double step = Math.min(
-                                remainingTime, MAX_STEP
-                        );
-
-                        physics.updatePhysics(planet, step);
-
+                        double step = Math.min(remainingTime, MAX_STEP);
+                        physics.updatePhysics(solarSystem, step);
                         remainingTime -= step;
                     }
                 }

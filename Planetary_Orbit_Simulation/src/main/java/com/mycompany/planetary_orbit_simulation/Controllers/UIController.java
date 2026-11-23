@@ -157,7 +157,7 @@ public class UIController {
     }
     
     @FXML
-    void startMotion(ActionEvent event) {
+    void startMotion(ActionEvent event) { 
         animationController.startAnimation();
     }
 }
