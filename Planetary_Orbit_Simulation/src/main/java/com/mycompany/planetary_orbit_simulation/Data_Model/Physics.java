@@ -65,9 +65,25 @@ public class Physics {
      * @param orbitalRadius the physical distance of the planet from the sun
      */
     public void calculateInitialVelocity(Planet planet, double orbitalRadius) {
-        double vy = Math.sqrt(GRAVITATIONAL_CONSTANT * planet.getSun().getMass() / orbitalRadius);
-        
-        planet.setVelocity(0, vy);
+        double x = planet.getX();
+        double y = planet.getY();
+
+        double distance = Math.hypot(x, y);
+
+        if (distance == 0 || orbitalRadius <= 0) {
+            return;
+        }
+
+        double speed = Math.sqrt(
+                GRAVITATIONAL_CONSTANT
+                * planet.getSun().getMass()
+                / orbitalRadius
+        );
+
+        double vx = -y / distance * speed;
+        double vy = x / distance * speed;
+
+        planet.setVelocity(vx, vy);
     }
     
     /**
