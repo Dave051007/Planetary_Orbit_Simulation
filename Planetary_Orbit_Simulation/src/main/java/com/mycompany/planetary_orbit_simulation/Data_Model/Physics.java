@@ -15,25 +15,35 @@ public class Physics {
      * Calculates the orbital acceleration of a planet based on the planet's parameters
      * @param planet the planet with its parameters
      */
-    public void calculateAcceleration(Planet planet) {
-        double x = -planet.getX();
-        double y = -planet.getY();
+    public void calculateAccelerations(SolarSystem solarSystem) {
+        Sun sun = solarSystem.getSun();
 
-        double distance = Math.hypot(x, y);
+        for (Planet planet : solarSystem.getPlanets()) {
+            double dx = sun.getSunX() - planet.getX();
+            double dy = sun.getSunY() - planet.getY();
 
-        if (distance == 0) {
-            planet.setAcceleration(0, 0);
-            return;
+            double distanceSquared = dx * dx + dy * dy;
+
+            if (distanceSquared == 0) {
+                planet.setAcceleration(0, 0);
+                continue;
+            }
+
+            double distance = Math.sqrt(distanceSquared);
+
+            // Calculate gravitational acceleration
+            double acceleration = GRAVITATIONAL_CONSTANT
+                    * sun.getMass() / (distance * distance);
+
+            // Calculate angle toward the Sun
+            double angle = Math.atan2(dy, dx);
+
+            // Calculate X and Y acceleration
+            double ax = acceleration * Math.cos(angle);
+            double ay = acceleration * Math.sin(angle);
+
+            planet.setAcceleration(ax, ay);
         }
-
-        double acceleration = GRAVITATIONAL_CONSTANT
-                * planet.getSun().getMass()
-                / (distance * distance);
-
-        double ax = acceleration * (x / distance);
-        double ay = acceleration * (y / distance);
-
-        planet.setAcceleration(ax, ay);
     }
         
    /**
