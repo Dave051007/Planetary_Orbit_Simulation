@@ -110,5 +110,8 @@ public class Planet {
         this.ax = ax;
         this.ay = ay;
     }
-
+    
+    public void setSun(Sun sun) {
+        this.sun = sun;
+    }
 }

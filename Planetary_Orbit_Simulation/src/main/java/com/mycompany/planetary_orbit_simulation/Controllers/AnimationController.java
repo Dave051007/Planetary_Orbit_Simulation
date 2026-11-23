@@ -4,11 +4,13 @@
  */
 package com.mycompany.planetary_orbit_simulation.Controllers;
 
+import com.mycompany.planetary_orbit_simulation.Data_Model.Physics;
 import com.mycompany.planetary_orbit_simulation.Data_Model.Planet;
 import com.mycompany.planetary_orbit_simulation.Data_Model.SolarSystem;
 import com.mycompany.planetary_orbit_simulation.Data_Model.Sun;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -23,8 +25,12 @@ public class AnimationController {
     private double SCALE =  1e9;           // 1 pixel = 1 * 10^9 m (temporary)
     private static final double MAX_ORBIT = 4.495e12;   // Neptune's distance (m)
     private static final double MAX_PIXELS = 280;       // how far Neptune is drawn from the Sun
-    
-    private double TIME_SCALE = 86400;     // 1 second = 86400 simulation seconds
+
+    private static final double MAX_STEP = 3600;
+    private double TIME_SCALE = 864000;     // 1 second = 864000 simulation seconds
+
+    private Physics physics;
+
     
     private final Pane animationPane;
     private final SolarSystem solarSystem;
@@ -32,9 +38,14 @@ public class AnimationController {
     private boolean namesVisible = false;
     private final Map<Planet, Text> nameTexts = new HashMap<>();
     
+    private AnimationTimer timer;
+    private long previousTime;
+    
     public AnimationController(Pane animationPane) {
         this.animationPane = animationPane;
-        this.solarSystem = new SolarSystem(new Sun(300.0, 300.0, 18.0));
+        this.solarSystem = new SolarSystem(new Sun(0, 0, 18.0));
+        
+        physics = new Physics();
         
         animationPane.widthProperty().addListener((obs, oldValue, newValue) -> {
             updateAllPlanetPositions();
@@ -44,35 +55,63 @@ public class AnimationController {
             updateAllPlanetPositions();
         });
         
+        initializePlanetsPhysics();
+        
         initSun();
         initOrbits();
         initPlanets();
     }
+    
+     /**
+     * Calculates the maximum available screen distance.
+     */
+    private double getMaxScreenDistance() {
+        return Math.max(
+                Math.min(animationPane.getWidth(),
+                         animationPane.getHeight()) / 2 - 20, 0
+        );
+    }
+    
     /**
      * Converts the planet's position into its JavaFX position. 
      * (real life position -> position in animation pane)
      * @param planet the planet of interest
      */
-    private void updatePlanetPosition(Planet planet) {
+    private void updatePlanetPosition(Planet planet) {       
         Circle sunShape = solarSystem.getSun().getShape();
         Circle planetShape = planet.getShape();
 
         double sunX = sunShape.getCenterX();
         double sunY = sunShape.getCenterY();
 
-        // Real distance from the Sun (meters)
-        double realDistance = Math.hypot(planet.getX(), planet.getY());
+        double dx = planet.getX() - solarSystem.getSun().getSunX();
+        double dy = planet.getY() - solarSystem.getSun().getSunY();
 
-        // Space available from the Sun to the edge of the pane (pixels)
-        double maxScreenDistance = Math.max(
-                Math.min(animationPane.getWidth(), animationPane.getHeight()) / 2 - 20, 0);
+        double realDistance = Math.hypot(dx, dy);
 
-        // Distance on screen (pixels), compressed so Neptune lands at the edge
-        double screenDistance = Math.sqrt(realDistance / MAX_ORBIT) * maxScreenDistance;
+        if (realDistance == 0) {
+
+            planetShape.setCenterX(sunX);
+            planetShape.setCenterY(sunY);
+
+            return;
+        }
+
+//        // Space available from the Sun to the edge of the pane (pixels)
+//        double maxScreenDistance = Math.max(
+//                Math.min(animationPane.getWidth(), animationPane.getHeight()) / 2 - 20, 0);
+//
+//        // Distance on screen (pixels), compressed so Neptune lands at the edge
+//        double screenDistance = Math.sqrt(realDistance / MAX_ORBIT) * maxScreenDistance;
+
+        // convert real distance into screen distance
+        double screenDistance = Math.sqrt(
+                realDistance / MAX_ORBIT
+        ) * getMaxScreenDistance();
 
         // Keep the planet's real direction, but place it at the screen distance
-        double screenX = sunX + planet.getX() / realDistance * screenDistance;
-        double screenY = sunY + planet.getY() / realDistance * screenDistance;
+        double screenX = sunX + dx / realDistance * screenDistance;
+        double screenY = sunY + dy / realDistance * screenDistance;
 
         planetShape.setCenterX(screenX);
         planetShape.setCenterY(screenY);
@@ -167,6 +206,64 @@ public class AnimationController {
         }
         
         setNamesVisible(namesVisible);
+    }
+    
+    private void initializePlanetsPhysics() {
+        for (Planet planet : solarSystem.getPlanets()) {
+            double orbitalRadius = Math.hypot(
+                    planet.getX() - solarSystem.getSun().getSunX(),
+                    planet.getY() - solarSystem.getSun().getSunY()
+            );
+
+            physics.calculateInitialVelocity(planet, orbitalRadius);
+        }
+
+        // Calculate initial gravitational accelerations
+        physics.calculateAccelerations(solarSystem);
+    }
+    
+    /**
+     * Starts the planet motion animation
+     */
+    public void startAnimation() {
+        if (timer != null) {
+            timer.stop();
+        }
+        
+        previousTime = 0;
+        
+        timer = new AnimationTimer() {
+
+            @Override
+            public void handle(long now) {
+                if (previousTime == 0) {
+                    previousTime = now;
+                    return;
+                }
+
+                double elapsed = (now - previousTime) / 1e9;
+
+                previousTime = now;
+
+                elapsed = Math.min(elapsed, 0.05);
+
+                double dt = elapsed * TIME_SCALE;
+                
+                for (Planet planet : solarSystem.getPlanets()) {
+                    double remainingTime = dt;
+
+                    while (remainingTime > 0) {
+                        double step = Math.min(remainingTime, MAX_STEP);
+                        physics.updatePhysics(solarSystem, step);
+                        remainingTime -= step;
+                    }
+                }
+
+                updateAllPlanetPositions();
+            }
+        };
+
+        timer.start();
     }
     
     public SolarSystem getSolarSystem() {

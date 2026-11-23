@@ -13,83 +13,124 @@ public class Physics {
     
     /**
      * Calculates the orbital acceleration of a planet based on the planet's parameters
-     * @param planet the planet with its parameters
      */
-    public void calculateAcceleration(Planet planet) {
-        // Initial vector postion from the planet towards the sun
-        double x = -planet.getX();
-        double y = -planet.getY();
-        
-        double distance = Math.sqrt((x * x)+(y * y));
-        
-       double a = GRAVITATIONAL_CONSTANT * planet.getSun().getMass() / (distance * distance);
-        
-        double angle = Math.atan2(y, x);
-        
-        double ax = a * Math.cos(angle);
-        double ay = a * Math.sin(angle);
-        
-        planet.setAcceleration(ax, ay);
+    public void calculateAccelerations(SolarSystem solarSystem) {
+        Sun sun = solarSystem.getSun();
+
+        for (Planet planet : solarSystem.getPlanets()) {
+            double dx = sun.getSunX() - planet.getX();
+            double dy = sun.getSunY() - planet.getY();
+
+            double distanceSquared = dx * dx + dy * dy;
+
+            if (distanceSquared == 0) {
+                planet.setAcceleration(0, 0);
+                continue;
+            }
+
+            double distance = Math.sqrt(distanceSquared);
+
+            // Calculate gravitational acceleration
+            double acceleration = GRAVITATIONAL_CONSTANT
+                    * sun.getMass() / (distance * distance);
+
+            // Calculate angle toward the Sun
+            double angle = Math.atan2(dy, dx);
+
+            // Calculate X and Y acceleration
+            double ax = acceleration * Math.cos(angle);
+            double ay = acceleration * Math.sin(angle);
+
+            planet.setAcceleration(ax, ay);
+        }
     }
-        
-   /**
-    * Calculates the instantaneous velocity of the planet.
-    * @param planet the planet that has the velocity to be updated
-    * @param dt the very small interval of time
-    */
-    public void updateVelocity(Planet planet, double dt) {
-        double oldAx = planet.getAx();
-        double oldAy = planet.getAy();
-        
-        double oldVx = planet.getVx();
-        double oldVy = planet.getVy();
-        
-        calculateAcceleration(planet);      // calculate the new acceleration based on the new position
-        
-        double newAx = planet.getAx();
-        double newAy = planet.getAy();
-        
-        double newVx = oldVx + ((oldAx + newAx) * 0.5) * dt;
-        double newVy = oldVy + ((oldAy + newAy) * 0.5) * dt;
-        
-        planet.setVelocity(newVx, newVy);
-    }
-    
+
     /**
      * Calculates the planet's initial velocity when planet is added
      * @param planet the planet with initial velocity when added to the animationPane
      * @param orbitalRadius the physical distance of the planet from the sun
      */
     public void calculateInitialVelocity(Planet planet, double orbitalRadius) {
-        double vy = Math.sqrt(GRAVITATIONAL_CONSTANT * planet.getSun().getMass() / orbitalRadius);
-        
-        planet.setVelocity(0, vy);
+        double dx = planet.getX() - planet.getSun().getSunX();
+        double dy = planet.getY() - planet.getSun().getSunY();
+
+        double distance = Math.hypot(dx, dy);
+
+        if (distance == 0 || orbitalRadius <= 0) {
+            return;
+        }
+
+        double circularSpeed = Math.sqrt(
+                GRAVITATIONAL_CONSTANT
+                * planet.getSun().getMass()
+                / distance
+        );
+
+        // 95% of circular speed
+        double speed = circularSpeed * 0.95;
+        double angle = Math.atan2(dy, dx);
+
+        // Calculate velocity using trigonometry
+        double vx = speed * Math.cos(angle + Math.PI / 2);
+        double vy = speed * Math.sin(angle + Math.PI / 2);
+
+        planet.setVelocity(vx, vy);
     }
-    
+
     /**
-     * Calculates the planet's new position in a small interval of time
-     * @param planet the planet that has the position to be updated
-     * @param dt the small interval of time
+     * Updates the positions and velocities of all planets
      */
-    public void updatePosition(Planet planet, double dt) {       // dt - small time interval
-        double vx = planet.getVx();
-        double vy = planet.getVy();
-        
-        double ax = planet.getAx();
-        double ay = planet.getAy();
-        
-        double dx = vx * dt + 0.5 * ax * (dt * dt);
-        double dy = vy * dt + 0.5 * ay * (dt * dt);
-        
-        double newX = planet.getX() + dx;
-        double newY = planet.getY() + dy;
-        
-        planet.setPosition(newX, newY);
-    }
-    
-    // Method that updates a planet's parameters over time
-    public void updatePhysics(Planet planet, double dt) {
-        updatePosition(planet, dt);         // update position based on current acceleration and velocity
-        updateVelocity(planet, dt);         // update the velocity using the average acceleration during dt
+    public void updatePhysics(SolarSystem solarSystem, double dt) {
+        if (dt <= 0) {
+            return;
+        }
+
+        int numberOfPlanets = solarSystem.getPlanets().size();
+
+        // Calculate initial accelerations
+        calculateAccelerations(solarSystem);
+
+        // Save initial accelerations
+        double[][] oldAccelerations = new double[numberOfPlanets][2];
+
+        for (int i = 0; i < numberOfPlanets; i++) {
+            Planet planet = solarSystem.getPlanets().get(i);
+
+            oldAccelerations[i][0] = planet.getAx();
+            oldAccelerations[i][1] = planet.getAy();
+        }
+
+        // Update all planet positions
+        for (Planet planet : solarSystem.getPlanets()) {
+
+            double newX = planet.getX()
+                    + planet.getVx() * dt
+                    + 0.5 * planet.getAx() * dt * dt;
+
+            double newY = planet.getY()
+                    + planet.getVy() * dt
+                    + 0.5 * planet.getAy() * dt * dt;
+
+            planet.setPosition(newX, newY);
+        }
+
+        // Calculate new accelerations using new positions
+        calculateAccelerations(solarSystem);
+
+        // Update all planet velocities
+        for (int i = 0; i < numberOfPlanets; i++) {
+
+            Planet planet = solarSystem.getPlanets().get(i);
+
+            double newVx = planet.getVx()
+                    + 0.5 * (oldAccelerations[i][0]
+                    + planet.getAx()) * dt;
+
+            double newVy = planet.getVy()
+                    + 0.5 * (oldAccelerations[i][1]
+                    + planet.getAy()) * dt;
+
+            planet.setVelocity(newVx, newVy);
+        }
     }
 }

@@ -51,6 +51,10 @@ public class SolarSystem {
         // Neptune
         planets.add(new Planet("Neptune", 1.02413e26,
                 4.495e12, 0, 8, Color.DARKBLUE));
+        
+        for (Planet planet : planets) {
+            planet.setSun(sun);
+        }
     }
 
     public Sun getSun() {
@@ -72,6 +76,7 @@ public class SolarSystem {
     }
     
     public void addPlanet(Planet planet) {
+        planet.setSun(sun);
         planets.add(planet);
     }
     
