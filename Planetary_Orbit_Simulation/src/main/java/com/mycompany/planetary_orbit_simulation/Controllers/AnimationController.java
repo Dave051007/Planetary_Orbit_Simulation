@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -30,7 +31,6 @@ public class AnimationController {
     private double TIME_SCALE = 864000;     // 1 second = 864000 simulation seconds
 
     private Physics physics;
-
     
     private final Pane animationPane;
     private final SolarSystem solarSystem;
@@ -40,6 +40,7 @@ public class AnimationController {
     
     private AnimationTimer timer;
     private long previousTime;
+    private boolean isRunning;
     
     public AnimationController(Pane animationPane) {
         this.animationPane = animationPane;
@@ -96,13 +97,6 @@ public class AnimationController {
 
             return;
         }
-
-//        // Space available from the Sun to the edge of the pane (pixels)
-//        double maxScreenDistance = Math.max(
-//                Math.min(animationPane.getWidth(), animationPane.getHeight()) / 2 - 20, 0);
-//
-//        // Distance on screen (pixels), compressed so Neptune lands at the edge
-//        double screenDistance = Math.sqrt(realDistance / MAX_ORBIT) * maxScreenDistance;
 
         // convert real distance into screen distance
         double screenDistance = Math.sqrt(
@@ -230,6 +224,7 @@ public class AnimationController {
             timer.stop();
         }
         
+        isRunning = true;
         previousTime = 0;
         
         timer = new AnimationTimer() {
@@ -264,6 +259,18 @@ public class AnimationController {
         };
 
         timer.start();
+    }
+    
+    public void pauseAnimation(Button pauseBtn) {
+        if (isRunning) {
+            timer.stop();
+            pauseBtn.setText("▶Resume");
+            isRunning = false;
+        } else {
+            timer.start();
+            pauseBtn.setText("◼Pause");
+            isRunning = true;
+        }
     }
     
     public SolarSystem getSolarSystem() {

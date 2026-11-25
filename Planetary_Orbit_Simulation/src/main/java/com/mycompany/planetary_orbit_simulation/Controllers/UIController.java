@@ -163,5 +163,12 @@ public class UIController {
     @FXML
     void startMotion(ActionEvent event) { 
         animationController.startAnimation();
+        pauseBtn.setDisable(false);
+        startBtn.setDisable(true);
+    }
+    
+    @FXML
+    void pauseAnimation(ActionEvent event) {
+        animationController.pauseAnimation(pauseBtn);
     }
 }
