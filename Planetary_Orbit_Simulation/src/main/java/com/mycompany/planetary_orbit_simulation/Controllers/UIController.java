@@ -165,10 +165,19 @@ public class UIController {
         animationController.startAnimation();
         pauseBtn.setDisable(false);
         startBtn.setDisable(true);
+        resetBtn.setDisable(false);
     }
     
     @FXML
     void pauseAnimation(ActionEvent event) {
         animationController.pauseAnimation(pauseBtn);
+    }
+    
+    @FXML
+    void resetAnimation(ActionEvent event) {
+        animationController.resetAnimation();
+        pauseBtn.setDisable(true);
+        startBtn.setDisable(false);
+        resetBtn.setDisable(true);
     }
 }

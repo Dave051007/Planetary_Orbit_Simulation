@@ -271,6 +271,28 @@ public class AnimationController {
         }
     }
     
+    public void resetAnimation() {
+        timer.stop();
+        isRunning = false;
+        
+        for (Planet planet : solarSystem.getPlanets()) {
+            planet.resetPosition();
+            
+            double orbitalRadius = Math.hypot(
+                planet.getX() - solarSystem.getSun().getSunX(),
+                planet.getY() - solarSystem.getSun().getSunY()
+            );
+
+            physics.calculateInitialVelocity(planet, orbitalRadius);
+        }
+        
+        physics.calculateAccelerations(solarSystem);
+        
+        updateAllPlanetPositions(); 
+        
+        previousTime = 0;
+    }
+    
     public SolarSystem getSolarSystem() {
         return solarSystem;
     }
