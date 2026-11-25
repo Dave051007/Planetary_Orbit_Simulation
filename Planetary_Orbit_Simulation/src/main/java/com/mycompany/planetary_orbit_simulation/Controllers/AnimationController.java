@@ -29,6 +29,7 @@ public class AnimationController {
 
     private static final double MAX_STEP = 3600;
     private double TIME_SCALE = 864000;     // 1 second = 864000 simulation seconds
+    private final double INITIAL_TIME_SCALE = 864000;
 
     private Physics physics;
     
@@ -303,6 +304,10 @@ public class AnimationController {
         updateAllPlanetPositions(); 
         
         previousTime = 0;
+    }
+    
+    public void setAnimationSpeed(double speed) {
+        TIME_SCALE = INITIAL_TIME_SCALE * speed;
     }
     
     public SolarSystem getSolarSystem() {

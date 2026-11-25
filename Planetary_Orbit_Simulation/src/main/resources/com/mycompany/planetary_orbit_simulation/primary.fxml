@@ -51,8 +51,8 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0">
                      <children>
-                        <Label fx:id="speedLbl" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="124.0" text="Simulation speed (x)" />
-                        <Slider fx:id="speedSlider" min="1.0" value="1.0" />
+                        <Label fx:id="speedLbl" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="124.0" text="Simulation speed (1x)" />
+                        <Slider fx:id="speedSlider" max="20.0" min="1.0" value="1.0" />
                         <CheckBox fx:id="planetsShowCb" mnemonicParsing="false" selected="true" text="Show planets" />
                         <CheckBox fx:id="planetNamesShowCb" mnemonicParsing="false" text="Show planet names" />
                         <CheckBox fx:id="trailsShowCb" mnemonicParsing="false" text="Show trails" />

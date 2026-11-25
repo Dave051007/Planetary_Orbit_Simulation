@@ -55,13 +55,19 @@ public class UIController {
     private AnimationController animationController;
 
     public void initialize() {
-        
+        animationController = new AnimationController(animationAreaPane);
+
         // Control Bar event handlers
         zoomLbl.textProperty().bind(
                 zoomSlider.valueProperty().asString("Zoom (%.0fx)"));
         
+        // Animation speed function
         speedLbl.textProperty().bind(speedSlider.valueProperty().
                 asString("Simulation Speed (%.0fx)"));
+        
+        speedSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setAnimationSpeed((double) newValue);
+        }); 
         
         minBtn.setOnAction(e -> {
             if (zoomSlider.getValue() != 1) {
@@ -75,26 +81,12 @@ public class UIController {
             }
         });
         
-        animationController = new AnimationController(animationAreaPane);
-        
+        // Show planet name checkbox listener
         planetNamesShowCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
             animationController.setNamesVisible(newValue);
         });
         
-        planetNamesShowCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
-            animationController.setNamesVisible(newValue);
-        });
-        
-        animationController.setBodyVisible(
-        animationController.getSolarSystem().getPlanet("Jupiter").getShape(), false);
-        animationController.setBodyVisible(
-                animationController.getSolarSystem().getPlanet("Saturn").getShape(), false);
-        animationController.setBodyVisible(
-                animationController.getSolarSystem().getPlanet("Uranus").getShape(), false);
-        animationController.setBodyVisible(
-                animationController.getSolarSystem().getPlanet("Neptune").getShape(), false);
-        
-        // Sun
+        // Make body visible checkbox listeners
         sunCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
             animationController.setBodyVisible(
                     animationController.getSolarSystem().getSun().getShape(),
@@ -102,7 +94,6 @@ public class UIController {
             );
         });
 
-        // Planets
         mercuryCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
             animationController.setBodyVisible(
                     animationController.getSolarSystem().getPlanet("Mercury").getShape(),
