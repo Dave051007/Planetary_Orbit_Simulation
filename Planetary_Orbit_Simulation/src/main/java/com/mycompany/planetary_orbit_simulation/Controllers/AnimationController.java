@@ -175,6 +175,9 @@ public class AnimationController {
         }
     }
     
+    /**
+     * Make planets names visible
+     */
     public void setNamesVisible(boolean visible) {
     namesVisible = visible;
     for (Map.Entry<Planet, Text> entry : nameTexts.entrySet()) {
@@ -202,6 +205,9 @@ public class AnimationController {
         setNamesVisible(namesVisible);
     }
     
+    /**
+     * Assigns all the planet's an initial speed and acceleration
+     */
     private void initializePlanetsPhysics() {
         for (Planet planet : solarSystem.getPlanets()) {
             double orbitalRadius = Math.hypot(
@@ -259,6 +265,9 @@ public class AnimationController {
         timer.start();
     }
     
+    /**
+     * Stops the animation. After stopping, clicking again will resume animation
+     */
     public void pauseAnimation(Button pauseBtn) {
         if (isRunning) {
             timer.stop();
@@ -271,6 +280,9 @@ public class AnimationController {
         }
     }
     
+    /**
+     * Stops animation and resets all planets' parameters
+     */
     public void resetAnimation() {
         timer.stop();
         isRunning = false;
