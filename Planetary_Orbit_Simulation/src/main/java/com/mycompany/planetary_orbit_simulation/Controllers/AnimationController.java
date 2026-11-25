@@ -244,16 +244,14 @@ public class AnimationController {
 
                 double dt = elapsed * TIME_SCALE;
                 
-                for (Planet planet : solarSystem.getPlanets()) {
-                    double remainingTime = dt;
+                double remainingTime = dt;
 
-                    while (remainingTime > 0) {
-                        double step = Math.min(remainingTime, MAX_STEP);
-                        physics.updatePhysics(solarSystem, step);
-                        remainingTime -= step;
-                    }
+                while (remainingTime > 0) {
+                    double step = Math.min(remainingTime, MAX_STEP);
+                    physics.updatePhysics(solarSystem, step);
+                    remainingTime -= step;
                 }
-
+                
                 updateAllPlanetPositions();
             }
         };
