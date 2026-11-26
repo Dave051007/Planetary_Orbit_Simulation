@@ -61,6 +61,10 @@ public class UIController {
         zoomLbl.textProperty().bind(
                 zoomSlider.valueProperty().asString("Zoom (%.0fx)"));
         
+        zoomSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setZoom(newValue.doubleValue());
+        });
+        
         // Animation speed function
         speedLbl.textProperty().bind(speedSlider.valueProperty().
                 asString("Simulation Speed (%.0fx)"));
@@ -70,13 +74,13 @@ public class UIController {
         }); 
         
         minBtn.setOnAction(e -> {
-            if (zoomSlider.getValue() != 1) {
+            if (zoomSlider.getValue() > zoomSlider.getMin()) {
                 zoomSlider.setValue(zoomSlider.getValue() - 1);
             }
         });
         
         plusBtn.setOnAction(e -> {
-            if (zoomSlider.getValue() != 100) {
+            if (zoomSlider.getValue() < zoomSlider.getMax()) {
                 zoomSlider.setValue(zoomSlider.getValue() + 1);
             }
         });
