@@ -33,5 +33,7 @@ public final class BodyImages {
             System.err.println("Could not read image: " + fileName);
             return null;
         }
+
+        return new ImagePattern(image);   // stretches over the circle's bounds
     }
 }
