@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.planetary_orbit_simulation.Data_Model;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.paint.ImagePattern;
 
 /**
  *
@@ -36,26 +33,37 @@ public class Planet {
     private Color planetColor;
 
     public Planet(String name, double mass, double x, double y, double radius, Color planetColor) {
+        this(name, mass, x, y, radius, planetColor, null);
+    }
+
+    public Planet(String name, double mass, double x, double y, double radius,
+                  Color planetColor, String imageFile) {
         this.name = name;
         this.mass = mass;
-        
+
         // Indicates initial position of planet
         this.x = x;
         this.y = y;
-        
+
         this.startX = x;
         this.startY = y;
-        
+
         // Indicates direction
         this.vx = 0;
         this.vy = 0;
-        
+
         // Initial values are 0
         this.ax = 0;
         this.ay = 0;
-        
+
         this.radius = radius;
+        this.planetColor = planetColor;
         this.shape = new Circle(radius, planetColor);
+        
+        ImagePattern pattern = BodyImages.load(imageFile);
+        if (pattern != null) {
+            this.shape.setFill(pattern);
+        }
     }
     
     /**
@@ -77,6 +85,10 @@ public class Planet {
         return shape;
     }
 
+    public Color getColor() {
+        return planetColor;
+    }
+    
     public double getRadius() {
         return radius;
     }

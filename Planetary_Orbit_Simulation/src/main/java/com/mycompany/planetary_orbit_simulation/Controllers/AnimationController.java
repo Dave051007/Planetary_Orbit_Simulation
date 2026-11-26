@@ -12,11 +12,15 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+
 
 /**
  *
@@ -35,6 +39,8 @@ public class AnimationController {
     
     private final Pane animationPane;
     private final SolarSystem solarSystem;
+    private final DoubleProperty zoom = new SimpleDoubleProperty(1.0);
+    private double sunBaseRadius;     // the Sun's size at 1x zoom
     
     private boolean namesVisible = false;
     private final Map<Planet, Text> nameTexts = new HashMap<>();
@@ -45,9 +51,16 @@ public class AnimationController {
     
     public AnimationController(Pane animationPane) {
         this.animationPane = animationPane;
-        this.solarSystem = new SolarSystem(new Sun(0, 0, 18.0));
+        this.solarSystem = new SolarSystem(new Sun(0, 0, 18.0, "sun.png"));
+        sunBaseRadius = solarSystem.getSun().getShape().getRadius();
         
         physics = new Physics();
+        
+        // Cut off anything drawn outside the animation area (needed when zoomed in)
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(animationPane.widthProperty());
+        clip.heightProperty().bind(animationPane.heightProperty());
+        animationPane.setClip(clip);
         
         animationPane.widthProperty().addListener((obs, oldValue, newValue) -> {
             updateAllPlanetPositions();
@@ -71,7 +84,7 @@ public class AnimationController {
         return Math.max(
                 Math.min(animationPane.getWidth(),
                          animationPane.getHeight()) / 2 - 20, 0
-        );
+        ) * zoom.get();
     }
     
     /**
@@ -141,16 +154,15 @@ public class AnimationController {
 
             Circle orbit = new Circle();
             orbit.setFill(Color.TRANSPARENT);
-            orbit.setStroke(((Color) planet.getShape().getFill()).deriveColor(0, 1, 1, 0.7));
+            orbit.setStroke(planet.getColor().deriveColor(0, 1, 1, 0.7));
             orbit.setMouseTransparent(true);
             orbit.setManaged(false);                       // never stretches the layout
             orbit.centerXProperty().bind(sunShape.centerXProperty());
             orbit.centerYProperty().bind(sunShape.centerYProperty());
             orbit.radiusProperty().bind(Bindings.createDoubleBinding(
-                    () -> Math.sqrt(r / MAX_ORBIT)
-                            * (Math.min(animationPane.getWidth(), animationPane.getHeight()) / 2 - 20),
-                    animationPane.widthProperty(), animationPane.heightProperty()));
-            orbit.visibleProperty().bind(planet.getShape().parentProperty().isNotNull());  // hidden planet = hidden line
+                    () -> Math.sqrt(r / MAX_ORBIT) * getMaxScreenDistance(),
+                    animationPane.widthProperty(), animationPane.heightProperty(), zoom));
+            orbit.visibleProperty().bind(planet.getShape().parentProperty().isNotNull());
 
             animationPane.getChildren().add(orbit);
         }
@@ -308,6 +320,23 @@ public class AnimationController {
     
     public void setAnimationSpeed(double speed) {
         TIME_SCALE = INITIAL_TIME_SCALE * speed;
+    }
+    
+     /**
+     * Zooms the view, centered on the Sun.
+     * Distances scale linearly with zoom, body sizes with its square root.
+     * @param newZoom 1 = whole system fits, larger = closer
+     */
+    public void setZoom(double newZoom) {
+        zoom.set(newZoom);
+
+        double bodyScale = Math.sqrt(newZoom);
+        solarSystem.getSun().getShape().setRadius(sunBaseRadius * bodyScale);
+        for (Planet planet : solarSystem.getPlanets()) {
+            planet.getShape().setRadius(planet.getRadius() * bodyScale);
+        }
+
+        updateAllPlanetPositions();   // also works while paused
     }
     
     public SolarSystem getSolarSystem() {
