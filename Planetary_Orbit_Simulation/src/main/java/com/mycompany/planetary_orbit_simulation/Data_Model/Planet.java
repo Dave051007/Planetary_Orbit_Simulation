@@ -20,6 +20,9 @@ public class Planet {
     private double x;
     private double y;
     
+    private double startX;
+    private double startY;
+    
     // velocity
     private double vx;
     private double vy;
@@ -40,6 +43,9 @@ public class Planet {
         this.x = x;
         this.y = y;
         
+        this.startX = x;
+        this.startY = y;
+        
         // Indicates direction
         this.vx = 0;
         this.vy = 0;
@@ -50,6 +56,21 @@ public class Planet {
         
         this.radius = radius;
         this.shape = new Circle(radius, planetColor);
+    }
+    
+    /**
+     * Sets the planet's position, acceleration and velocity
+     * to its beginning state.
+     */
+    public void resetPosition() {
+        x = startX;
+        y = startY;
+
+        vx = 0;
+        vy = 0;
+
+        ax = 0;
+        ay = 0;
     }
 
     public Circle getShape() {
@@ -110,5 +131,8 @@ public class Planet {
         this.ax = ax;
         this.ay = ay;
     }
-
+    
+    public void setSun(Sun sun) {
+        this.sun = sun;
+    }
 }

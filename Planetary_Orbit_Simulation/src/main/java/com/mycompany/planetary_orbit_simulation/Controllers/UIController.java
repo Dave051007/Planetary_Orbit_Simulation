@@ -1,5 +1,6 @@
 package com.mycompany.planetary_orbit_simulation.Controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -50,15 +51,23 @@ public class UIController {
     @FXML private Button resetBtn;
     @FXML private Button minBtn;
     @FXML private Button plusBtn;
+    
+    private AnimationController animationController;
 
     public void initialize() {
-        
+        animationController = new AnimationController(animationAreaPane);
+
         // Control Bar event handlers
         zoomLbl.textProperty().bind(
                 zoomSlider.valueProperty().asString("Zoom (%.0fx)"));
         
+        // Animation speed function
         speedLbl.textProperty().bind(speedSlider.valueProperty().
                 asString("Simulation Speed (%.0fx)"));
+        
+        speedSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setAnimationSpeed((double) newValue);
+        }); 
         
         minBtn.setOnAction(e -> {
             if (zoomSlider.getValue() != 1) {
@@ -72,22 +81,12 @@ public class UIController {
             }
         });
         
-        AnimationController animationController = new AnimationController(animationAreaPane);
-        
+        // Show planet name checkbox listener
         planetNamesShowCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
             animationController.setNamesVisible(newValue);
         });
         
-        animationController.setBodyVisible(
-        animationController.getSolarSystem().getPlanet("Jupiter").getShape(), false);
-        animationController.setBodyVisible(
-                animationController.getSolarSystem().getPlanet("Saturn").getShape(), false);
-        animationController.setBodyVisible(
-                animationController.getSolarSystem().getPlanet("Uranus").getShape(), false);
-        animationController.setBodyVisible(
-                animationController.getSolarSystem().getPlanet("Neptune").getShape(), false);
-        
-        // Sun
+        // Make body visible checkbox listeners
         sunCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
             animationController.setBodyVisible(
                     animationController.getSolarSystem().getSun().getShape(),
@@ -95,7 +94,6 @@ public class UIController {
             );
         });
 
-        // Planets
         mercuryCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
             animationController.setBodyVisible(
                     animationController.getSolarSystem().getPlanet("Mercury").getShape(),
@@ -153,4 +151,24 @@ public class UIController {
         });
     }
     
+    @FXML
+    void startMotion(ActionEvent event) { 
+        animationController.startAnimation();
+        pauseBtn.setDisable(false);
+        startBtn.setDisable(true);
+        resetBtn.setDisable(false);
+    }
+    
+    @FXML
+    void pauseAnimation(ActionEvent event) {
+        animationController.pauseAnimation(pauseBtn);
+    }
+    
+    @FXML
+    void resetAnimation(ActionEvent event) {
+        animationController.resetAnimation();
+        pauseBtn.setDisable(true);
+        startBtn.setDisable(false);
+        resetBtn.setDisable(true);
+    }
 }
