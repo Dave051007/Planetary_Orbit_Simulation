@@ -86,9 +86,22 @@ public class UIController {
             }
         });
         
+        // Show planets checbox listener
+        planetsShowCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setPlanetsVisible(newValue);
+        });
+        
         // Show planet name checkbox listener
         planetNamesShowCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
             animationController.setNamesVisible(newValue);
+        });
+        
+        // Show trails checkbox listener
+        //
+        
+        // Show orbit lines checkbox listener
+        orbitLinesShowCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            animationController.setOrbitLinesVisible(newValue);
         });
         
         // Make body visible checkbox listeners
@@ -158,6 +171,7 @@ public class UIController {
         // Sync the pane with the checkboxes' initial state
         // The Sun, Mercury, Venus, Earth, and Mars are on AnimationPane by default
         SolarSystem system = animationController.getSolarSystem();
+        
         animationController.setBodyVisible(system.getSun().getShape(), sunCb.isSelected());
         animationController.setBodyVisible(system.getPlanet("Mercury").getShape(), mercuryCb.isSelected());
         animationController.setBodyVisible(system.getPlanet("Venus").getShape(), venusCb.isSelected());
@@ -167,6 +181,10 @@ public class UIController {
         animationController.setBodyVisible(system.getPlanet("Saturn").getShape(), saturnCb.isSelected());
         animationController.setBodyVisible(system.getPlanet("Uranus").getShape(), uranusCb.isSelected());
         animationController.setBodyVisible(system.getPlanet("Neptune").getShape(), neptuneCb.isSelected());
+        
+        // Planets are visible by default as well as their orbit lines
+        animationController.setPlanetsVisible(planetsShowCb.isSelected());
+        animationController.setOrbitLinesVisible(orbitLinesShowCb.isSelected());
     }
     
     @FXML

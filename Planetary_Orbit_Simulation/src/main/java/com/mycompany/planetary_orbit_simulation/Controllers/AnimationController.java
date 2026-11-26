@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -39,6 +41,7 @@ public class AnimationController {
     
     private final Pane animationPane;
     private final SolarSystem solarSystem;
+    private final BooleanProperty orbitLinesVisible = new SimpleBooleanProperty(true);
     private final DoubleProperty zoom = new SimpleDoubleProperty(1.0);
     private double sunBaseRadius;     // the Sun's size at 1x zoom
     
@@ -162,7 +165,7 @@ public class AnimationController {
             orbit.radiusProperty().bind(Bindings.createDoubleBinding(
                     () -> Math.sqrt(r / MAX_ORBIT) * getMaxScreenDistance(),
                     animationPane.widthProperty(), animationPane.heightProperty(), zoom));
-            orbit.visibleProperty().bind(planet.getShape().parentProperty().isNotNull());
+            orbit.visibleProperty().bind(planet.getShape().parentProperty().isNotNull().and(orbitLinesVisible));
 
             animationPane.getChildren().add(orbit);
         }
@@ -192,11 +195,13 @@ public class AnimationController {
      * Make planets names visible
      */
     public void setNamesVisible(boolean visible) {
-    namesVisible = visible;
-    for (Map.Entry<Planet, Text> entry : nameTexts.entrySet()) {
-        // a name shows only if names are on AND its planet is in the pane
-        entry.getValue().setVisible(
-                namesVisible && animationPane.getChildren().contains(entry.getKey().getShape()));
+        namesVisible = visible;
+        for (Map.Entry<Planet, Text> entry : nameTexts.entrySet()) {
+            // a name shows only if names are on AND its planet is in the pane
+            entry.getValue().setVisible(
+                    namesVisible
+                    && animationPane.getChildren().contains(entry.getKey().getShape())
+                    && entry.getKey().getShape().isVisible());
     }
 }
     
@@ -337,6 +342,23 @@ public class AnimationController {
         }
 
         updateAllPlanetPositions();   // also works while paused
+    }
+    
+    /**
+     * Shows or hides all the planets (not the Sun) at once.
+     */
+    public void setPlanetsVisible(boolean visible) {
+        for (Planet planet : solarSystem.getPlanets()) {
+            planet.getShape().setVisible(visible);
+        }
+        setNamesVisible(namesVisible);      // refresh the name labels
+    }
+
+    /**
+     * Shows or hides all the orbit lines at once.
+     */
+    public void setOrbitLinesVisible(boolean visible) {
+        orbitLinesVisible.set(visible);
     }
     
     public SolarSystem getSolarSystem() {
