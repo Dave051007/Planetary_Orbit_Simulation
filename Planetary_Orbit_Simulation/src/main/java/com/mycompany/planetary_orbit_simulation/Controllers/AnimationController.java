@@ -310,6 +310,23 @@ public class AnimationController {
         TIME_SCALE = INITIAL_TIME_SCALE * speed;
     }
     
+     /**
+     * Zooms the view, centered on the Sun.
+     * Distances scale linearly with zoom, body sizes with its square root.
+     * @param newZoom 1 = whole system fits, larger = closer
+     */
+    public void setZoom(double newZoom) {
+        zoom.set(newZoom);
+
+        double bodyScale = Math.sqrt(newZoom);
+        solarSystem.getSun().getShape().setRadius(sunBaseRadius * bodyScale);
+        for (Planet planet : solarSystem.getPlanets()) {
+            planet.getShape().setRadius(planet.getRadius() * bodyScale);
+        }
+
+        updateAllPlanetPositions();   // also works while paused
+    }
+    
     public SolarSystem getSolarSystem() {
         return solarSystem;
     }
