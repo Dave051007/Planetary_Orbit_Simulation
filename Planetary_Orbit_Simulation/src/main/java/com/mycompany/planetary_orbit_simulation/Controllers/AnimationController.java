@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -28,9 +29,9 @@ public class AnimationController {
 
     private static final double MAX_STEP = 3600;
     private double TIME_SCALE = 864000;     // 1 second = 864000 simulation seconds
+    private final double INITIAL_TIME_SCALE = 864000;
 
     private Physics physics;
-
     
     private final Pane animationPane;
     private final SolarSystem solarSystem;
@@ -40,6 +41,7 @@ public class AnimationController {
     
     private AnimationTimer timer;
     private long previousTime;
+    private boolean isRunning;
     
     public AnimationController(Pane animationPane) {
         this.animationPane = animationPane;
@@ -96,13 +98,6 @@ public class AnimationController {
 
             return;
         }
-
-//        // Space available from the Sun to the edge of the pane (pixels)
-//        double maxScreenDistance = Math.max(
-//                Math.min(animationPane.getWidth(), animationPane.getHeight()) / 2 - 20, 0);
-//
-//        // Distance on screen (pixels), compressed so Neptune lands at the edge
-//        double screenDistance = Math.sqrt(realDistance / MAX_ORBIT) * maxScreenDistance;
 
         // convert real distance into screen distance
         double screenDistance = Math.sqrt(
@@ -181,6 +176,9 @@ public class AnimationController {
         }
     }
     
+    /**
+     * Make planets names visible
+     */
     public void setNamesVisible(boolean visible) {
     namesVisible = visible;
     for (Map.Entry<Planet, Text> entry : nameTexts.entrySet()) {
@@ -208,6 +206,9 @@ public class AnimationController {
         setNamesVisible(namesVisible);
     }
     
+    /**
+     * Assigns all the planet's an initial speed and acceleration
+     */
     private void initializePlanetsPhysics() {
         for (Planet planet : solarSystem.getPlanets()) {
             double orbitalRadius = Math.hypot(
@@ -230,6 +231,7 @@ public class AnimationController {
             timer.stop();
         }
         
+        isRunning = true;
         previousTime = 0;
         
         timer = new AnimationTimer() {
@@ -249,21 +251,63 @@ public class AnimationController {
 
                 double dt = elapsed * TIME_SCALE;
                 
-                for (Planet planet : solarSystem.getPlanets()) {
-                    double remainingTime = dt;
+                double remainingTime = dt;
 
-                    while (remainingTime > 0) {
-                        double step = Math.min(remainingTime, MAX_STEP);
-                        physics.updatePhysics(solarSystem, step);
-                        remainingTime -= step;
-                    }
+                while (remainingTime > 0) {
+                    double step = Math.min(remainingTime, MAX_STEP);
+                    physics.updatePhysics(solarSystem, step);
+                    remainingTime -= step;
                 }
-
+                
                 updateAllPlanetPositions();
             }
         };
 
         timer.start();
+    }
+    
+    /**
+     * Stops the animation. After stopping, clicking again will resume animation
+     */
+    public void pauseAnimation(Button pauseBtn) {
+        if (isRunning) {
+            timer.stop();
+            pauseBtn.setText("▶Resume");
+            isRunning = false;
+        } else {
+            timer.start();
+            pauseBtn.setText("◼Pause");
+            isRunning = true;
+        }
+    }
+    
+    /**
+     * Stops animation and resets all planets' parameters
+     */
+    public void resetAnimation() {
+        timer.stop();
+        isRunning = false;
+        
+        for (Planet planet : solarSystem.getPlanets()) {
+            planet.resetPosition();
+            
+            double orbitalRadius = Math.hypot(
+                planet.getX() - solarSystem.getSun().getSunX(),
+                planet.getY() - solarSystem.getSun().getSunY()
+            );
+
+            physics.calculateInitialVelocity(planet, orbitalRadius);
+        }
+        
+        physics.calculateAccelerations(solarSystem);
+        
+        updateAllPlanetPositions(); 
+        
+        previousTime = 0;
+    }
+    
+    public void setAnimationSpeed(double speed) {
+        TIME_SCALE = INITIAL_TIME_SCALE * speed;
     }
     
     public SolarSystem getSolarSystem() {

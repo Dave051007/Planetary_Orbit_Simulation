@@ -102,7 +102,6 @@ public class Physics {
 
         // Update all planet positions
         for (Planet planet : solarSystem.getPlanets()) {
-
             double newX = planet.getX()
                     + planet.getVx() * dt
                     + 0.5 * planet.getAx() * dt * dt;
@@ -119,7 +118,6 @@ public class Physics {
 
         // Update all planet velocities
         for (int i = 0; i < numberOfPlanets; i++) {
-
             Planet planet = solarSystem.getPlanets().get(i);
 
             double newVx = planet.getVx()
