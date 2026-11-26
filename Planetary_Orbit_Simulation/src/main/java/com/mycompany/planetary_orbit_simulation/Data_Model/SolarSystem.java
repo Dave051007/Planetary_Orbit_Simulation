@@ -22,35 +22,35 @@ public class SolarSystem {
         
         // Mercury
         planets.add(new Planet("Mercury", 3.3011e23,
-                5.79e10, 0, 3, Color.GRAY));
+                5.79e10, 0, 3, Color.GRAY, "mercury.png"));
 
         // Venus
         planets.add(new Planet("Venus", 4.8675e24,
-                1.082e11, 0, 5, Color.ORANGE));
+                1.082e11, 0, 5, Color.ORANGE, "venus.png"));
 
         // Earth
         planets.add(new Planet("Earth", 5.972e24,
-                1.496e11, 0, 5, Color.BLUE));
+                1.496e11, 0, 5, Color.BLUE, "earth.png"));
 
         // Mars
         planets.add(new Planet("Mars", 6.4171e23,
-                2.279e11, 0, 4, Color.RED));
+                2.279e11, 0, 4, Color.RED, "mars.png"));
 
         // Jupiter
         planets.add(new Planet("Jupiter", 1.8982e27,
-                7.785e11, 0, 12, Color.SIENNA));
+                7.785e11, 0, 12, Color.SIENNA, "jupiter.png"));
 
         // Saturn
         planets.add(new Planet("Saturn", 5.6834e26,
-                1.434e12, 0, 10, Color.PERU));
+                1.434e12, 0, 10, Color.PERU, "saturn.png"));
 
         // Uranus
         planets.add(new Planet("Uranus", 8.6810e25,
-                2.871e12, 0, 8, Color.LIGHTBLUE));
+                2.871e12, 0, 8, Color.LIGHTBLUE, "uranus.png"));
 
         // Neptune
         planets.add(new Planet("Neptune", 1.02413e26,
-                4.495e12, 0, 8, Color.DARKBLUE));
+                4.495e12, 0, 8, Color.DARKBLUE, "neptune.png"));
         
         for (Planet planet : planets) {
             planet.setSun(sun);
