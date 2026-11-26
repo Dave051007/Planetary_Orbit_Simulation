@@ -45,7 +45,7 @@ public class AnimationController {
     
     public AnimationController(Pane animationPane) {
         this.animationPane = animationPane;
-        this.solarSystem = new SolarSystem(new Sun(0, 0, 18.0));
+        this.solarSystem = new SolarSystem(new Sun(0, 0, 18.0, "sun.png"));
         
         physics = new Physics();
         
@@ -141,7 +141,7 @@ public class AnimationController {
 
             Circle orbit = new Circle();
             orbit.setFill(Color.TRANSPARENT);
-            orbit.setStroke(((Color) planet.getShape().getFill()).deriveColor(0, 1, 1, 0.7));
+            orbit.setStroke(planet.getColor().deriveColor(0, 1, 1, 0.7));
             orbit.setMouseTransparent(true);
             orbit.setManaged(false);                       // never stretches the layout
             orbit.centerXProperty().bind(sunShape.centerXProperty());
