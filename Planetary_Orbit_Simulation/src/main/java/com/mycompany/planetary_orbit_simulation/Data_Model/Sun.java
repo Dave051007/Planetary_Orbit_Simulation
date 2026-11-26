@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.planetary_orbit_simulation.Data_Model;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.paint.ImagePattern;
 
 /**
  *
@@ -21,6 +18,10 @@ public class Sun {
     private Circle shape;
 
     public Sun(double sunX, double sunY, double radius) {
+        this(sunX, sunY, radius, null);
+    }
+
+    public Sun(double sunX, double sunY, double radius, String imageFile) {
         this.sunX = sunX;
         this.sunY = sunY;
         
@@ -28,6 +29,11 @@ public class Sun {
         shape.setCenterX(sunX);
         shape.setCenterY(sunY);
         shape.setFill(Color.YELLOW);
+        
+        ImagePattern pattern = BodyImages.load(imageFile);
+        if (pattern != null) {
+            shape.setFill(pattern);
+        }
     }
 
     public double getMass() {
