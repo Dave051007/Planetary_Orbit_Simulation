@@ -1,5 +1,6 @@
 package com.mycompany.planetary_orbit_simulation.Controllers;
 
+import com.mycompany.planetary_orbit_simulation.Data_Model.SolarSystem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -153,6 +154,19 @@ public class UIController {
                     newValue
             );
         });
+        
+        // Sync the pane with the checkboxes' initial state
+        // The Sun, Mercury, Venus, Earth, and Mars are on AnimationPane by default
+        SolarSystem system = animationController.getSolarSystem();
+        animationController.setBodyVisible(system.getSun().getShape(), sunCb.isSelected());
+        animationController.setBodyVisible(system.getPlanet("Mercury").getShape(), mercuryCb.isSelected());
+        animationController.setBodyVisible(system.getPlanet("Venus").getShape(), venusCb.isSelected());
+        animationController.setBodyVisible(system.getPlanet("Earth").getShape(), earthCb.isSelected());
+        animationController.setBodyVisible(system.getPlanet("Mars").getShape(), marsCb.isSelected());
+        animationController.setBodyVisible(system.getPlanet("Jupiter").getShape(), jupiterCb.isSelected());
+        animationController.setBodyVisible(system.getPlanet("Saturn").getShape(), saturnCb.isSelected());
+        animationController.setBodyVisible(system.getPlanet("Uranus").getShape(), uranusCb.isSelected());
+        animationController.setBodyVisible(system.getPlanet("Neptune").getShape(), neptuneCb.isSelected());
     }
     
     @FXML

@@ -162,6 +162,7 @@ public class AnimationController {
             orbit.radiusProperty().bind(Bindings.createDoubleBinding(
                     () -> Math.sqrt(r / MAX_ORBIT) * getMaxScreenDistance(),
                     animationPane.widthProperty(), animationPane.heightProperty(), zoom));
+            orbit.visibleProperty().bind(planet.getShape().parentProperty().isNotNull());
 
             animationPane.getChildren().add(orbit);
         }
