@@ -361,6 +361,14 @@ public class AnimationController {
         orbitLinesVisible.set(visible);
     }
     
+    /**
+     * Flags whether Sun gravity is active
+     * @param on 
+     */
+    public void setSunGravity(boolean on) {
+        physics.setSunGravityOn(on);
+    }
+    
     public SolarSystem getSolarSystem() {
         return solarSystem;
     }

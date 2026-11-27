@@ -1,13 +1,18 @@
 package com.mycompany.planetary_orbit_simulation.Controllers;
 
+import com.mycompany.planetary_orbit_simulation.Data_Model.Planet;
 import com.mycompany.planetary_orbit_simulation.Data_Model.SolarSystem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 
 /**
  * 
@@ -52,6 +57,9 @@ public class UIController {
     @FXML private Button resetBtn;
     @FXML private Button minBtn;
     @FXML private Button plusBtn;
+    
+    // Orbit Line Legend
+    @FXML private VBox orbitLegendBox;
     
     private AnimationController animationController;
 
@@ -110,6 +118,8 @@ public class UIController {
                     animationController.getSolarSystem().getSun().getShape(),
                     newValue
             );
+            
+            animationController.setSunGravity(newValue);
         });
 
         mercuryCb.selectedProperty().addListener((obs, oldValue, newValue) -> {
@@ -171,6 +181,21 @@ public class UIController {
         // Sync the pane with the checkboxes' initial state
         // The Sun, Mercury, Venus, Earth, and Mars are on AnimationPane by default
         SolarSystem system = animationController.getSolarSystem();
+        
+        // Orbit Line Legend
+        for (Planet planet : system.getPlanets()) {
+            Line swatch = new Line(0, 0, 24, 0);
+            swatch.setStroke(planet.getColor().deriveColor(0, 1, 1, 0.7));  // same color as the orbit
+            swatch.setStrokeWidth(3);
+
+            HBox row = new HBox(8, swatch, new Label(planet.getName()));
+            row.setAlignment(Pos.CENTER_LEFT);
+            row.visibleProperty().bind(planet.getShape().parentProperty().isNotNull()); // follows planet checkbox
+            row.managedProperty().bind(row.visibleProperty());                          // no gaps
+            orbitLegendBox.getChildren().add(row);
+        }
+        
+        orbitLegendBox.visibleProperty().bind(orbitLinesShowCb.selectedProperty());     // follows "Show orbit lines"
         
         animationController.setBodyVisible(system.getSun().getShape(), sunCb.isSelected());
         animationController.setBodyVisible(system.getPlanet("Mercury").getShape(), mercuryCb.isSelected());
