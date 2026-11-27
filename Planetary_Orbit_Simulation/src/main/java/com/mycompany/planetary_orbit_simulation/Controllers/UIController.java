@@ -110,6 +110,8 @@ public class UIController {
                     animationController.getSolarSystem().getSun().getShape(),
                     newValue
             );
+            
+            animationController.setSunGravity(newValue);
         });
 
         mercuryCb.selectedProperty().addListener((obs, oldValue, newValue) -> {

@@ -10,6 +10,7 @@ package com.mycompany.planetary_orbit_simulation.Data_Model;
  */
 public class Physics {
     private final double GRAVITATIONAL_CONSTANT = 6.6743e-11;
+    private boolean sunGravityOn = true;
     
     /**
      * Calculates the orbital acceleration of a planet based on the planet's parameters
@@ -18,6 +19,10 @@ public class Physics {
         Sun sun = solarSystem.getSun();
 
         for (Planet planet : solarSystem.getPlanets()) {
+            if (!sunGravityOn) {
+                planet.setAcceleration(0, 0); continue;
+            }
+            
             double dx = sun.getSunX() - planet.getX();
             double dy = sun.getSunY() - planet.getY();
 
@@ -130,5 +135,9 @@ public class Physics {
 
             planet.setVelocity(newVx, newVy);
         }
+    }
+    
+    public void setSunGravityOn(boolean on) {
+        sunGravityOn = on;
     }
 }
