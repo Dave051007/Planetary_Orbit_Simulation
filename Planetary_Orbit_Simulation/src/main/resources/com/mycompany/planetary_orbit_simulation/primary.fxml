@@ -85,7 +85,7 @@
          </BorderPane.margin>
          <children>
             <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="145.0" text="Graphs" VBox.vgrow="ALWAYS" />
-            <TitledPane collapsible="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="264.0" prefWidth="200.0" text="Orbit Line Color" VBox.vgrow="ALWAYS">
+            <TitledPane collapsible="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="264.0" prefWidth="200.0" text="Orbit Line Legend" VBox.vgrow="ALWAYS">
                 <content>
                    <VBox fx:id="orbitLegendBox" spacing="8.0">
                       <padding>
